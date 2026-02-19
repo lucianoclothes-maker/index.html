@@ -1,4 +1,4 @@
-// 1. Инициализираме картата с новите настройки
+// 1. Инициализираме картата
 var map = L.map('map', {
     worldCopyJump: true, 
     minZoom: 2,
@@ -15,7 +15,7 @@ function getColor(type) {
                                     '#3388ff';
 }
 
-// 3. Зареждане на данни и обновяване на броячите + СТРАНИЧЕН ПАНЕЛ
+// 3. Зареждане на данни и страничен панел
 fetch('conflicts.json')
     .then(response => response.json())
     .then(data => {
@@ -23,7 +23,6 @@ fetch('conflicts.json')
         let countries = new Set();
 
         data.forEach(point => {
-            // Създаваме маркера
             let marker = L.circleMarker([point.lat, point.lon], {
                 radius: 10,
                 fillColor: getColor(point.type),
@@ -47,4 +46,28 @@ fetch('conflicts.json')
                     </div>
                     <div style="margin-top: 20px; color: #eee;">
                         <p>💀 <strong>Жертви:</strong> ${point.fatalities}</p>
-                        <p>
+                        <p>📍 <strong>Координати:</strong> ${point.lat.toFixed(2)}, ${point.lon.toFixed(2)}</p>
+                        <br>
+                        <a href="https://www.politico.eu/defense/" target="_blank" 
+                           style="display: block; text-align: center; background: #4da6ff; color: white; padding: 12px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                           ПРОЧЕТИ ПЪЛНАТА НОВИНА
+                        </a>
+                    </div>
+                `;
+            });
+
+            totalFatalities += point.fatalities;
+            countries.add(point.country);
+        });
+
+        // Обновяване на броячите горе
+        document.getElementById('active-events').innerText = `Active events: ${data.length}`;
+        document.getElementById('total-fatalities').innerText = `Total fatalities: ${totalFatalities}`;
+        document.getElementById('countries-affected').innerText = `Countries affected: ${countries.size}`;
+        document.getElementById('last-update').innerText = `Last update: ${new Date().toLocaleDateString()}`;
+    })
+    .catch(err => console.error("Грешка при зареждане на JSON:", err));
+
+// 4. Легендата
+var legend = L.control({position: 'bottomright'});
+legend.onAdd =
