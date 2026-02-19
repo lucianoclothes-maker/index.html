@@ -1,11 +1,18 @@
 [
     {
-        "country": "World Update",
-        "date": "2026-02-19",
-        "fatalities": 0,
-        "type": "Other",
-        "lat": 0.0,
-        "lon": 0.0,
-        "title": "No conflict news found in the last hour."
+        "country": "Ukraine",
+        "date": "2026-02-20",
+        "fatalities": 5,
+        "type": "Explosion",
+        "lat": 48.37,
+        "lon": 31.16
+    },
+    {
+        "country": "Sudan",
+        "date": "2026-02-20",
+        "fatalities": 15,
+        "type": "Armed clash",
+        "lat": 12.86,
+        "lon": 30.21
     }
 ]
