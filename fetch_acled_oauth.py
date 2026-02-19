@@ -3,17 +3,18 @@ import json
 from geopy.geocoders import Nominatim
 import time
 
-# Списък с източници
+# Източници на новини
 SOURCES = [
     "https://reliefweb.int/updates/rss.xml",
     "https://www.politico.eu/rss-source/defense/"
 ]
 
-geolocator = Nominatim(user_agent="conflict_tracker_v2")
+# Инициализиране на геолокатора
+geolocator = Nominatim(user_agent="conflict_tracker_final")
 
 def fetch_news():
     new_data = []
-    # Разширен списък за по-добра детекция
+    # Списък за детекция и автоматично определяне на типа събитие
     hotspots = {
         "Ukraine": "Explosion",
         "Russia": "Airstrike",
@@ -23,19 +24,20 @@ def fetch_news():
         "Syria": "Armed clash",
         "Yemen": "Airstrike",
         "Congo": "Armed clash",
-        "Myanmar": "Armed clash"
+        "Myanmar": "Armed clash",
+        "Libya": "Armed clash",
+        "Somalia": "Explosion"
     }
 
     for url in SOURCES:
         feed = feedparser.parse(url)
         source_name = "Politico" if "politico" in url else "ReliefWeb"
-        print(f"Проверка на {source_name}...")
+        print(f"Сканиране на {source_name}...")
 
-        for entry in feed.entries[:20]:
+        for entry in feed.entries[:25]: # Проверяваме повече статии
             title = entry.title
             found_country = None
             
-            # Търсим държава в заглавието
             for country in hotspots.keys():
                 if country.lower() in title.lower():
                     found_country = country
@@ -45,28 +47,30 @@ def fetch_news():
                 try:
                     location = geolocator.geocode(found_country)
                     if location:
-                        # Създаваме обект, който JS кодът ще разбере веднага
+                        # ТУК Е ПОПРАВКАТА: Добавяме истински линк и пълно заглавие
                         new_data.append({
                             "country": found_country,
                             "date": time.strftime("%Y-%m-%d"),
-                            "fatalities": 1, # ACLED стил
+                            "fatalities": 1,
                             "type": hotspots[found_country],
                             "lat": location.latitude,
                             "lon": location.longitude,
-                            "title": title # Пълното заглавие за панела
+                            "title": title,         # Пълно заглавие за панела
+                            "link": entry.link      # Истински линк за бутона
                         })
-                        print(f" Намерено събитие: {found_country}")
-                        time.sleep(1) # Защита срещу блокиране от Nominatim
-                except:
+                        print(f" Намерено: {found_country}")
+                        time.sleep(1.1) # Защита срещу блокиране
+                except Exception as e:
+                    print(f"Грешка при геолокация: {e}")
                     continue
 
-    # Вместо да трием всичко, ако е празно, запазваме старите данни
     if new_data:
+        # Записваме в JSON файла
         with open('conflicts.json', 'w', encoding='utf-8') as f:
             json.dump(new_data, f, indent=4, ensure_ascii=False)
-        print(f"Успех! Записани са {len(new_data)} новини.")
+        print(f"Готово! Записани са {len(new_data)} активни конфликтни зони.")
     else:
-        print("Не бяха намерени нови новини в RSS емисиите.")
+        print("В момента няма нови събития в посочените региони.")
 
 if __name__ == "__main__":
     fetch_news()
