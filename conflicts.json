@@ -1,18 +1,29 @@
 [
     {
-        "country": "Ukraine",
-        "date": "2026-02-20",
-        "fatalities": 5,
-        "type": "Explosion",
-        "lat": 48.37,
-        "lon": 31.16
+        "country": "Sudan",
+        "date": "2026-02-19",
+        "fatalities": 10,
+        "type": "News Alert",
+        "lat": 14.5844444,
+        "lon": 29.4917691,
+        "title": "[ReliefWeb] Briefing to the Security Council on the humanitarian situation in Sudan by Ms. E..."
     },
     {
         "country": "Sudan",
-        "date": "2026-02-20",
-        "fatalities": 15,
-        "type": "Armed clash",
-        "lat": 12.86,
-        "lon": 30.21
+        "date": "2026-02-19",
+        "fatalities": 10,
+        "type": "News Alert",
+        "lat": 14.5844444,
+        "lon": 29.4917691,
+        "title": "[ReliefWeb] Sudan CCPM Action Plan and Survey Results 2025..."
+    },
+    {
+        "country": "Congo",
+        "date": "2026-02-19",
+        "fatalities": 10,
+        "type": "News Alert",
+        "lat": -2.9814344,
+        "lon": 23.8222636,
+        "title": "[ReliefWeb] DR Congo: East Consortium: Research on climate-sensitive programming and social ..."
     }
 ]
