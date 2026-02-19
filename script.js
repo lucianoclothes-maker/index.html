@@ -1,9 +1,9 @@
 window.onload = function() {
-    // 1. Инициализиране на картата
+    // 1. Инициализиране на картата - Връщаме стандартния изглед
     var map = L.map('map', {
         worldCopyJump: true,
         minZoom: 2
-    }).setView([48, 31], 5); // Центрирано към Украйна за начало
+    }).setView([20, 0], 2);
 
     // ОСНОВЕН СЛОЙ: Тъмен фон
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
@@ -21,6 +21,7 @@ window.onload = function() {
         labels.setOpacity(map.getZoom() >= 5 ? 1 : 0.4);
     });
 
+    // Функция за цветовете на точките
     function getColor(type) {
         const colors = {
             'Explosion': '#ff4d4d',
@@ -31,7 +32,7 @@ window.onload = function() {
         return colors[type] || '#3388ff';
     }
 
-    // 2. ЗЕЛЕНИ ГРАНИЦИ
+    // 2. ЗЕЛЕНИ ГРАНИЦИ С ХОВЪР ЕФЕКТ
     fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
         .then(response => response.json())
         .then(geojsonData => {
@@ -49,7 +50,7 @@ window.onload = function() {
             }).addTo(map);
         });
 
-    // 2.1 ЛИНИЯ НА ФРОНТА (Червената линия от Liveuamap)
+    // 2.1 ЧЕРВЕНА ЛИНИЯ НА ФРОНТА (Украйна)
     fetch('https://raw.githubusercontent.com/uaminna/ukraine-war-data/main/data/frontline.geojson')
         .then(response => response.json())
         .then(frontlineData => {
@@ -62,9 +63,9 @@ window.onload = function() {
                 }
             }).addTo(map);
         })
-        .catch(err => console.log("Фронтовата линия не е заредена."));
+        .catch(err => console.log("Фронтовата линия не е заредена, но картата продължава."));
 
-    // 3. ЗАРЕЖДАНЕ НА КОНФЛИКТИТЕ
+    // 3. ЗАРЕЖДАНЕ НА КОНФЛИКТИТЕ ОТ conflicts.json
     fetch('conflicts.json')
         .then(response => response.json())
         .then(data => {
@@ -81,7 +82,7 @@ window.onload = function() {
                     weight: 2,
                     opacity: 1,
                     fillOpacity: 0.8,
-                    className: 'pulse'
+                    className: 'pulse' // За анимацията в CSS
                 }).addTo(map);
 
                 marker.bindTooltip(point.country);
@@ -89,7 +90,7 @@ window.onload = function() {
                 marker.on('click', function(e) {
                     map.setView(e.target.getLatLng(), map.getZoom());
 
-                    // Показваме жертви само ако са > 0
+                    // Показваме жертви само ако са над 0
                     let fatalitiesHTML = (point.fatalities && point.fatalities > 0) 
                         ? `<p style="font-size: 16px; color: #eee; margin: 10px 0;">💀 <strong>Жертви:</strong> ${point.fatalities}</p>` 
                         : "";
@@ -104,7 +105,7 @@ window.onload = function() {
                         </div>
                         <div style="margin-top: 20px;">
                             ${fatalitiesHTML}
-                            <a href="${point.link}" target="_blank" class="news-btn" style="text-decoration: none; display: block;">ПРОЧЕТИ ПЪЛНАТА НОВИНА</a>
+                            <a href="${point.link}" target="_blank" class="news-btn" style="text-decoration: none; display: block; text-align: center;">ПРОЧЕТИ ПЪЛНАТА НОВИНА</a>
                         </div>
                     `;
                 });
@@ -113,7 +114,7 @@ window.onload = function() {
                 if (point.country) countries.add(point.country);
             });
 
-            // Обновяване на статистиката в хедъра
+            // Обновяване на хедъра
             document.getElementById('active-events').innerText = `Active events: ${data.length}`;
             document.getElementById('total-fatalities').innerText = `Total fatalities: ${totalFatalities}`;
             document.getElementById('countries-affected').innerText = `Countries affected: ${countries.size}`;
@@ -121,7 +122,7 @@ window.onload = function() {
         })
         .catch(err => {
             console.error("Грешка:", err);
-            document.getElementById('news-content').innerHTML = "<p style='color:red;'>Грешка в conflicts.json!</p>";
+            document.getElementById('news-content').innerHTML = "<p style='color:red;'>Грешка в conflicts.json! Провери структурата на файла.</p>";
         });
 
     setTimeout(function() { map.invalidateSize(); }, 800);
