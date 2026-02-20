@@ -106,26 +106,14 @@ fetch('conflicts.json')
         document.getElementById('news-ticker').innerText = data.map(p => `[${p.country.toUpperCase()}: ${p.title}]`).join(' +++ ');
         document.getElementById('last-update').innerText = "Last update: " + new Date().toLocaleDateString();
     }); 
-                                                         // 1. ПРИНУДИТЕЛНО ПУСКАНЕ НА КАРТАТА
+                                                         // 1. ПРИНУДИТЕЛНО ПУСКАНЕ НА КАРТАТА (Фикс за черния екран)
     setTimeout(() => { 
         if (typeof map !== 'undefined') {
             map.invalidateSize(); 
         }
     }, 800);
 
-    // 2. ЧАСОВНИК
-    setInterval(() => {
-        const clockEl = document.getElementById('utc-clock');
-        if (clockEl) {
-            const now = new Date();
-            const timeStr = now.getUTCHours().toString().padStart(2, '0') + ":" +
-                          now.getUTCMinutes().toString().padStart(2, '0') + ":" +
-                          now.getUTCSeconds().toString().padStart(2, '0') + " UTC";
-            clockEl.innerText = timeStr;
-        }
-    }, 1000);
-
-    // 3. ЛОГИКА НА ТЪРСАЧКАТА
+    // 2. ЛОГИКА НА ТЪРСАЧКАТА
     const searchInput = document.getElementById('map-search');
     const resultsDiv = document.getElementById('search-results');
 
@@ -139,6 +127,7 @@ fetch('conflicts.json')
                 return;
             }
 
+            // Търсим в allConflictData, който напълнихме на ред 101
             const matches = allConflictData.filter(p => 
                 p.country.toLowerCase().includes(term) || 
                 p.title.toLowerCase().includes(term)
@@ -163,4 +152,16 @@ fetch('conflicts.json')
         });
     }
 
-}; // ТАЗИ СКОБА ТРЯБВА ДА Е НА ПОСЛЕДНИЯ РЕД НА ФАЙЛА!
+}; // ТАЗИ СКОБА Е КРИТИЧНА - тя затваря window.onload от началото на файла!
+
+// 3. ЧАСОВНИК (Извън onload, за да е независим)
+setInterval(() => {
+    const clockEl = document.getElementById('utc-clock');
+    if (clockEl) {
+        const now = new Date();
+        const timeStr = now.getUTCHours().toString().padStart(2, '0') + ":" +
+                      now.getUTCMinutes().toString().padStart(2, '0') + ":" +
+                      now.getUTCSeconds().toString().padStart(2, '0') + " UTC";
+        clockEl.innerText = timeStr;
+    }
+}, 1000);
