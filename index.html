@@ -7,32 +7,23 @@
     <style>
         body { margin: 0; padding: 0; background: #000; color: #39FF14; font-family: 'Courier New', monospace; overflow: hidden; }
         
-        /* КАРТАТА Е НА ЦЕЛИЯ ЕКРАН */
-        #map {
-            position: absolute;
-            top: 60px;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 1;
-        }
+        #map { position: absolute; top: 60px; bottom: 0; left: 0; right: 0; z-index: 1; }
 
-        /* ЧАТЪТ - Плаващ вляво, отрязан наполовина */
+        /* ЧАТЪТ - ВЕЧЕ Е ДОЛУ ВЛЯВО */
         #left-chat-floating {
             position: absolute;
-            top: 80px; /* Малко под хедъра */
+            bottom: 20px; 
             left: 20px;
             width: 280px;
-            height: 45%; /* Ето тук го режем на половина */
-            background: rgba(5, 5, 5, 0.85); /* Полупрозрачен, за да е малко по-яко */
+            height: 40%; 
+            background: rgba(5, 5, 5, 0.9);
             border: 1px solid #39FF14;
             display: flex;
             flex-direction: column;
-            z-index: 1000; /* Над картата */
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            z-index: 1000;
         }
 
-        /* НОВИНИТЕ - Плаващи вдясно */
+        /* НОВИНИТЕ - ОСТАВАТ ВДЯСНО */
         #news-floating {
             position: absolute;
             top: 80px;
@@ -44,26 +35,14 @@
             display: flex;
             flex-direction: column;
             z-index: 1000;
-            overflow: hidden;
         }
 
-        #news-content {
-            padding: 12px;
-            overflow-y: auto;
-            color: #ccc;
-            font-size: 13px;
-        }
+        #news-content { padding: 12px; overflow-y: auto; color: #ccc; font-size: 13px; }
 
         header {
-            height: 60px;
-            background: #000;
-            border-bottom: 1px solid #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1001;
+            height: 60px; background: #000; border-bottom: 1px solid #333;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative; z-index: 1001;
         }
 
         .map-legend {
@@ -79,29 +58,25 @@
     </style>
 </head>
 <body>
-
     <header>
         <div style="font-size: 18px; font-weight: bold;">🌐 Global Conflict Dashboard</div>
-        <div style="font-size: 11px; color: #888;">
-            Active events: <span id="active-events" style="color:#39FF14">0</span> | 
-            Fatalities: <span id="total-fatalities" style="color:#ff4d4d">0</span> | ONLINE: <span style="color:#39FF14">1</span>
-        </div>
+        <div style="font-size: 11px; color: #888;">Active events: <span id="active-events" style="color:#39FF14">11</span> | ONLINE: <span style="color:#39FF14">1</span></div>
     </header>
 
     <div id="map">
         <div class="map-legend">
             <div style="border-bottom: 1px solid #39FF14; margin-bottom: 5px; font-weight: bold;">ЛЕГЕНДА</div>
-            ⚔️ Сражения<br>🚀 Удари<br>🚢 Флот<br>☢️ Ядрена<br>💻 Кибер<br>⚠️ Инциденти
+            ⚔️ Сражения | 🚀 Удари | 🚢 Флот | ⚠️ Инциденти
         </div>
     </div>
 
     <div id="left-chat-floating">
-        <div style="padding: 5px; background: #222; text-align: center; font-size: 11px; border-bottom: 1px solid #39FF14; color: #39FF14;">📡 ТАКТИЧЕСКИ ЧАТ</div>
-        <iframe src="https://www5.cbox.ws/box/?boxid=961439&boxtag=rRC1cC" width="100%" height="100%" allowtransparency="yes" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+        <div style="padding: 5px; background: #222; text-align: center; font-size: 11px; border-bottom: 1px solid #39FF14;">📡 ТАКТИЧЕСКИ ЧАТ</div>
+        <iframe src="https://www5.cbox.ws/box/?boxid=961439&boxtag=rRC1cC" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe>
     </div>
 
     <div id="news-floating">
-        <div style="padding: 8px; background: #222; font-size: 12px; border-bottom: 1px solid #333; color: #39FF14;">📑 ТАКТИЧЕСКИ ДЕЙТА ФИЙД</div>
+        <div style="padding: 8px; background: #222; font-size: 12px; border-bottom: 1px solid #333;">📑 ТАКТИЧЕСКИ ДЕЙТА ФИЙД</div>
         <div id="news-content">
             <p style="font-style: italic; color: #666;">Изберете инцидент...</p>
         </div>
