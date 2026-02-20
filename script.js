@@ -79,27 +79,43 @@ window.onload = function() {
             .then(data => {
                 allConflictData = data;
                 markersLayer.clearLayers(); 
+                
                 let countries = new Set();
+                let totalDeaths = 0; // Започваме брояча от 0
+
                 data.forEach(p => {
+                    // Добавяме броя на жертвите, ако съществува такова поле в JSON
+                    if (p.fatalities) {
+                        totalDeaths += parseInt(p.fatalities);
+                    }
+
                     let marker = L.marker([p.lat, p.lon], { icon: getTacticalIcon(p.type) });
                     marker.addTo(markersLayer);
+                    
                     marker.on('click', () => {
                         map.setView([p.lat, p.lon], 6, { animate: true });
-                        let twHTML = p.twitter_link ? `<div style="margin-top: 15px; max-height: 400px; overflow-y: auto;"><blockquote class="twitter-tweet" data-theme="dark"><a href="${p.twitter_link}"></a></blockquote></div>` : "";
+                        let twitterHTML = p.twitter_link ? `<div style="margin-top: 15px; max-height: 400px; overflow-y: auto;"><blockquote class="twitter-tweet" data-theme="dark"><a href="${p.twitter_link}"></a></blockquote></div>` : "";
+
                         document.getElementById('news-content').innerHTML = `
                             <div style="border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px;">
                                 <h2 style="color: #ff4d4d; margin: 0;">${p.country}</h2>
                                 <small>${p.date} | ${p.type}</small>
                             </div>
-                            <p style="color: #ccc;">${p.title}</p>${twHTML}
+                            <p style="color: #ccc;">${p.title}</p>
+                            ${twitterHTML}
                             <a href="${p.link}" target="_blank" class="news-btn" style="display:block; text-align:center; text-decoration:none; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 10px; margin-top:10px;">ДЕТАЙЛИ</a>`;
                         if (window.twttr) { window.twttr.widgets.load(); }
                     });
+
                     countries.add(p.country);
                 });
-                document.getElementById('active-events').innerText = "Active: " + data.length;
-                document.getElementById('countries-affected').innerText = "Countries: " + countries.size;
-                document.getElementById('news-ticker').innerText = data.map(p => `[${p.country}: ${p.title}]`).join(' +++ ');
+
+                // Обновяване на всички полета в Dashboard-а
+                document.getElementById('active-events').innerText = "Active events: " + data.length;
+                document.getElementById('total-fatalities').innerText = "Total fatalities: " + totalDeaths;
+                document.getElementById('countries-affected').innerText = "Countries affected: " + countries.size;
+                document.getElementById('last-update').innerText = "Last update: " + new Date().toLocaleTimeString();
+                document.getElementById('news-ticker').innerText = data.map(p => `[${p.country.toUpperCase()}: ${p.title}]`).join(' +++ ');
             });
     }
     loadMapData();
