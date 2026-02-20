@@ -45,11 +45,25 @@ window.onload = function() {
     const iconNaval = createLiveIcon(paths.ship, '#3498db'); // Синьо за море
     const iconMissile = createLiveIcon(paths.missile, '#8e44ad'); // Лилаво за ракети
 
-    function getTacticalIcon(type, title) {
+function getTacticalIcon(type, title) {
         const t = title.toLowerCase();
-        if (type === 'Naval') return iconNaval;
-        if (t.includes('missile') || t.includes('ракет')) return iconMissile;
-        if (type === 'Explosion' || type === 'Airstrike') return iconExplosion;
+        
+        // 1. Проверка за ракети и дронове (Лилаво)
+        if (t.includes('missile') || t.includes('ракет') || t.includes('drone') || t.includes('дрон') || t.includes('uav')) {
+            return iconMissile;
+        }
+        
+        // 2. Проверка за кораби (Синьо)
+        if (type === 'Naval' || t.includes('ship') || t.includes('кораб') || t.includes('boat')) {
+            return iconNaval;
+        }
+        
+        // 3. Проверка за експлозии и удари (Оранжево)
+        if (type === 'Explosion' || type === 'Airstrike' || t.includes('strike') || t.includes('удар') || t.includes('взрив')) {
+            return iconExplosion;
+        }
+        
+        // 4. Всичко останало - автоматично червено за боеве
         return iconClash;
     }
 
