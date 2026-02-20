@@ -21,17 +21,32 @@ window.onload = function() {
         });
     };
 
-    const iconClash = createOldIcon('✖', '#ff4d4d');     // Червен хикс
-    const iconExplosion = createOldIcon('⚠️', '#ffcc00'); // Жълт триъгълник
-    const iconNaval = createOldIcon('🚢', '#3498db');     // Син кораб
-    const iconMissile = createOldIcon('🚀', '#8e44ad');   // Лилава ракета
+   // --- 2. НЕОНОВИ ИКОНИ С РАЗЛИЧНИ СИМВОЛИ ---
+    const createNeonIcon = (symbol, color) => {
+        return L.divIcon({
+            html: `<div style="color: ${color}; font-size: 22px; text-shadow: 0 0 10px ${color}, 0 0 15px ${color}; font-weight: bold; display: flex; align-items: center; justify-content: center;">${symbol}</div>`,
+            className: '', 
+            iconSize: [30, 30], 
+            iconAnchor: [15, 15]
+        });
+    };
 
-    // --- 3. ЛОГИКА ЗА ИКОНИТЕ ---
+    // Дефинираме иконите според легендата ти
+    const iconClash = createNeonIcon('✖', '#ff4d4d');     // Червен хикс
+    const iconExplosion = createNeonIcon('⚠️', '#ffcc00'); // Жълт триъгълник
+    const iconNaval = createNeonIcon('🚢', '#3498db');     // Син кораб
+    const iconMissile = createNeonIcon('🚀', '#8e44ad');   // Лилава ракета
+
+    // --- 3. АВТОМАТИЧНО РАЗПРЕДЕЛЕНИЕ ---
     function getTacticalIcon(type, title) {
         const t = title.toLowerCase();
+        // Ракети и Дронове
         if (t.includes('missile') || t.includes('ракет') || t.includes('drone') || t.includes('дрон')) return iconMissile;
+        // Кораби
         if (type === 'Naval' || t.includes('ship') || t.includes('кораб')) return iconNaval;
+        // Експлозии и Удари
         if (type === 'Explosion' || type === 'Airstrike' || t.includes('удар') || t.includes('взрив')) return iconExplosion;
+        // Всичко останало е Сблъсък (Хикс)
         return iconClash;
     }
 
