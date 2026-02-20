@@ -1,6 +1,6 @@
 /**
  * GLOBAL CONFLICT DASHBOARD v4.0 - FULL SCALE PRODUCTION CODE
- * Обновен с тактическо оцветяване на зони с напрежение.
+ * Обновен с тактическо оцветяване, интерактивни статуси и поправка за САЩ.
  */
 
 window.onload = function() {
@@ -18,9 +18,9 @@ window.onload = function() {
         attribution: '© OpenStreetMap contributors, © CartoDB'
     }).addTo(map);
 
-    // --- [НОВО] ТАКТИЧЕСКО ОЦВЕТЯВАНЕ НА ДЪРЖАВИ ---
+    // --- [НОВО] ТАКТИЧЕСКО ОЦВЕТЯВАНЕ И ИНТЕРАКТИВНОСТ ---
     const warZones = ['Russia', 'Ukraine', 'Israel', 'Palestine', 'Sudan', 'Syria', 'Yemen'];
-    const tensionZones = ['United States of America', 'Iran', 'North Korea', 'South Korea', 'China', 'Taiwan'];
+    const tensionZones = ['United States', 'United States of America', 'Iran', 'North Korea', 'South Korea', 'China', 'Taiwan'];
 
     fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
         .then(res => res.json())
@@ -29,14 +29,47 @@ window.onload = function() {
                 style: function(feature) {
                     const name = feature.properties.name;
                     if (warZones.includes(name)) {
-                        return { fillColor: "#ff0000", weight: 1, opacity: 1, color: '#ff3333', fillOpacity: 0.2 };
+                        return { fillColor: "#ff0000", weight: 1, opacity: 1, color: '#ff3333', fillOpacity: 0.25 };
                     }
                     if (tensionZones.includes(name)) {
                         return { fillColor: "#ff8c00", weight: 1, opacity: 1, color: '#ff8c00', fillOpacity: 0.15 };
                     }
-                    return { fillColor: "transparent", weight: 0.5, color: "#222", fillOpacity: 0 };
+                    // Държави без активност (No Activities)
+                    return { fillColor: "#000", weight: 0.5, color: "#222", fillOpacity: 0.1 };
                 },
-                interactive: false
+                onEachFeature: function(feature, layer) {
+                    const name = feature.properties.name;
+                    let statusText = "STATUS: <span style='color:#888;'>NO ACTIVITIES</span>";
+                    
+                    if (warZones.includes(name)) {
+                        statusText = "STATUS: <span style='color:#ff4d4d; font-weight:bold;'>HIGH DANGER (IN WAR)</span>";
+                    } else if (tensionZones.includes(name)) {
+                        statusText = "STATUS: <span style='color:#ff8c00; font-weight:bold;'>ELEVATED TENSION (MEDIUM)</span>";
+                    }
+
+                    // Тактически Tooltip при посочване
+                    layer.bindTooltip(`
+                        <div style="background:rgba(0,0,0,0.9); color:#fff; border:1px solid #39FF14; padding:5px; font-family:monospace; font-size:11px;">
+                            <strong style="color:#39FF14;">${name.toUpperCase()}</strong><br>
+                            ${statusText}
+                        </div>`, 
+                        { sticky: true, opacity: 0.9, direction: 'top' }
+                    );
+
+                    // Визуален ефект при преминаване с мишката
+                    layer.on('mouseover', function() {
+                        this.setStyle({ fillOpacity: 0.4, weight: 2, color: '#39FF14' });
+                    });
+                    layer.on('mouseout', function() {
+                        const isWar = warZones.includes(name);
+                        const isTension = tensionZones.includes(name);
+                        this.setStyle({ 
+                            fillOpacity: isWar ? 0.25 : (isTension ? 0.15 : 0.1), 
+                            weight: 1,
+                            color: isWar ? '#ff3333' : (isTension ? '#ff8c00' : '#222')
+                        });
+                    });
+                }
             }).addTo(map);
         });
 
@@ -54,7 +87,7 @@ window.onload = function() {
         color: '#ff3333',
         weight: 2,
         fillColor: '#ff0000',
-        fillOpacity: 0.3, // По-плътно за фронта
+        fillOpacity: 0.3,
         interactive: false
     }).addTo(map);
 
@@ -85,7 +118,7 @@ window.onload = function() {
     }
 
     // --- 4. ТЪРСАЧКА И ДЕТАЙЛИ ---
-    const searchInput = document.querySelector('input[placeholder*="Search"]'); // Английски placeholder
+    const searchInput = document.querySelector('input[placeholder*="Search"]');
     let resultsList = document.getElementById('search-results-list');
     
     if (searchInput) {
@@ -154,24 +187,3 @@ window.onload = function() {
                     const icon = getIconForEvent(item.title, item.description);
                     L.marker([item.lat, item.lon], { icon: icon }).addTo(markersLayer).on('click', () => displayNewsDetails(item));
                 });
-
-                updateUIElement('active-events', data.length);
-                updateUIElement('total-fatalities', totalDeaths);
-            })
-            .catch(err => console.error("Sync Error:", err));
-    }
-
-    function updateUIElement(id, text) {
-        const el = document.getElementById(id);
-        if (el) el.innerText = text;
-    }
-
-    fetchAndSyncData();
-    setInterval(fetchAndSyncData, 60000);
-};
-
-// UTC Clock
-setInterval(() => {
-    const clock = document.getElementById('header-time');
-    if (clock) clock.innerText = new Date().toISOString().substr(11, 8) + " UTC";
-}, 1000);
