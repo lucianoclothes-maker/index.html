@@ -27,7 +27,7 @@ FEEDS = [
     "https://www.zerohedge.com/feed", 
     "https://halturnerradioshow.com/index.php/en/?format=feed&type=rss", 
     "https://southfront.press/feed/", 
-    "https://nova.bg/,
+    "https://nova.bg/",
 ]
 
 geolocator = Nominatim(user_agent="conflict_map_final_v12")
@@ -143,6 +143,7 @@ def run_bot():
 
 if __name__ == "__main__":
     run_bot()
+
 
 
 
