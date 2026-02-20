@@ -283,3 +283,12 @@ chatInput.addEventListener('keypress', function (e) {
         handleSendMessage();
     }
 });
+function updateOnlineStatus() {
+    const el = document.getElementById('online-users');
+    if (el) {
+        const fakeCount = Math.floor(Math.random() * (15 - 5 + 1)) + 5; // Симулира 5-15 човека
+        el.innerHTML = `USERS ONLINE: ${fakeCount}`;
+    }
+}
+setInterval(updateOnlineStatus, 15000); // Сменя се на всеки 15 секунди
+updateOnlineStatus();
