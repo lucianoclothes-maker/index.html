@@ -117,9 +117,14 @@ setInterval(() => {
                     now.getUTCSeconds().toString().padStart(2, '0') + " UTC";
     document.getElementById('utc-clock').innerText = timeStr;
 }, 1000);
-}, 1000); // Ред 119
+// 1. ФИКС ЗА КАРТАТА (Осигурява визуализацията ѝ веднага)
+    setTimeout(() => { 
+        if (typeof map !== 'undefined') {
+            map.invalidateSize(); 
+        }
+    }, 500);
 
-    // --- ЛОГИКА НА ТЪРСАЧКАТА ---
+    // 2. ЛОГИКА НА ТЪРСАЧКАТА
     const searchInput = document.getElementById('map-search');
     const resultsDiv = document.getElementById('search-results');
 
@@ -133,6 +138,7 @@ setInterval(() => {
                 return;
             }
 
+            // Търсене в глобалната променлива allConflictData
             const matches = allConflictData.filter(p => 
                 p.country.toLowerCase().includes(term) || 
                 p.title.toLowerCase().includes(term)
@@ -145,7 +151,7 @@ setInterval(() => {
                     div.className = 'suggestion-item';
                     div.innerText = `${match.country}: ${match.title}`;
                     div.onclick = () => {
-                        map.flyTo([match.lat, match.lng], 8);
+                        map.flyTo([match.lat, match.lng], 8); // Плавно прелитане до точката
                         searchInput.value = match.country;
                         resultsDiv.style.display = 'none';
                     };
@@ -156,4 +162,4 @@ setInterval(() => {
             }
         });
     }
-}; // Тази последна скоба затваря целия файл
+}; // ТАЗИ СКОБА ЗАТВАРЯ ЦЕЛИЯ ФАЙЛ (window.onload)
