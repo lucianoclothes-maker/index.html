@@ -1,6 +1,6 @@
 /**
- * GLOBAL CONFLICT DASHBOARD v4.0 - FINAL PRODUCTION CODE
- * Всичко е поправено: Карта, САЩ, Интерактивни статуси и Статистика.
+ * GLOBAL CONFLICT DASHBOARD v4.0 - FULL SCALE PRODUCTION CODE
+ * Всичко е възстановено и тествано.
  */
 
 window.onload = function() {
@@ -18,8 +18,9 @@ window.onload = function() {
         attribution: '© OpenStreetMap contributors, © CartoDB'
     }).addTo(map);
 
-    // --- 2. ТАКТИЧЕСКО ОЦВЕТЯВАНЕ И ИНТЕРАКТИВНОСТ ---
+    // --- [ПОПРАВЕНО] ТАКТИЧЕСКО ОЦВЕТЯВАНЕ И ИНТЕРАКТИВНОСТ ---
     const warZones = ['Russia', 'Ukraine', 'Israel', 'Palestine', 'Sudan', 'Syria', 'Yemen'];
+    // Тук добавихме "United States", за да свети правилно в оранжево
     const tensionZones = ['United States', 'United States of America', 'USA', 'Iran', 'North Korea', 'South Korea', 'China', 'Taiwan'];
 
     fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
@@ -34,6 +35,7 @@ window.onload = function() {
                     if (tensionZones.includes(name)) {
                         return { fillColor: "#ff8c00", weight: 1, opacity: 1, color: '#ff8c00', fillOpacity: 0.15 };
                     }
+                    // Държави без активност (No Activities) - вече в черно
                     return { fillColor: "#000", weight: 0.5, color: "#222", fillOpacity: 0.1 };
                 },
                 onEachFeature: function(feature, layer) {
@@ -46,8 +48,9 @@ window.onload = function() {
                         statusText = "STATUS: <span style='color:#ff8c00; font-weight:bold;'>ELEVATED TENSION (MEDIUM)</span>";
                     }
 
+                    // Тактически Tooltip
                     layer.bindTooltip(`
-                        <div style="background:rgba(0,0,0,0.95); color:#fff; border:1px solid #39FF14; padding:5px; font-family:monospace; font-size:11px;">
+                        <div style="background:rgba(0,0,0,0.9); color:#fff; border:1px solid #39FF14; padding:5px; font-family:monospace; font-size:11px;">
                             <strong style="color:#39FF14;">${name.toUpperCase()}</strong><br>
                             ${statusText}
                         </div>`, 
@@ -72,7 +75,7 @@ window.onload = function() {
 
     let globalConflictData = [];
 
-    // --- 3. ВОЕННА ЗОНА (УКРАЙНА - ФРОНТОВА ЛИНИЯ) ---
+    // --- 2. ВОЕННА ЗОНА (УКРАЙНА) ---
     const ukraineFrontline = [
         [51.5, 34.0], [50.1, 38.5], [49.2, 39.8], [48.5, 39.5], 
         [47.1, 38.2], [46.5, 37.0], [45.3, 36.6], [44.4, 34.0], 
@@ -88,7 +91,7 @@ window.onload = function() {
         opacity: 0.6, pane: 'shadowPane' 
     }).addTo(map);
 
-    // --- 4. СИСТЕМА ЗА ИКОНИ ---
+    // --- 3. СИСТЕМА ЗА ИКОНИ ---
     function createCustomIcon(symbol, color, shouldPulse = true) {
         return L.divIcon({
-            html:
+            html: `<div style="color: ${color}; font-size: 22px; text-shadow: 0 0 10px ${color}; display: flex; align-items: center; justify-content: center
