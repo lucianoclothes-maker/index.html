@@ -1,11 +1,12 @@
 window.onload = function() {
-    // 1. Инициализиране на картата
+    // 1. ИНИЦИАЛИЗИРАНЕ НА КАРТАТА
+    // Фокусираме директно върху Украйна, за да видиш новите червени зони веднага
     var map = L.map('map', {
         worldCopyJump: true,
         minZoom: 2
-    }).setView([48.3, 35.5], 5); // Фокус върху Украйна при зареждане
+    }).setView([48.3, 35.5], 5); 
 
-    // ОСНОВЕН СЛОЙ: Тъмен фон
+    // ОСНОВЕН СЛОЙ: Тъмен фон (CartoDB Dark Matter)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; CartoDB'
     }).addTo(map);
@@ -16,6 +17,7 @@ window.onload = function() {
         pane: 'shadowPane'
     }).addTo(map);
 
+    // Функция за цветовете на точките според типа събитие
     function getColor(type) {
         const colors = {
             'Explosion': '#ff4d4d',
@@ -26,24 +28,33 @@ window.onload = function() {
         return colors[type] || '#3388ff';
     }
 
-    // 2. ЗЕЛЕНИ ГРАНИЦИ (Държави)
+    // 2. ЗЕЛЕНИ ГРАНИЦИ (Държави) с Mouseover ефект
     fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
         .then(response => response.json())
         .then(geojsonData => {
             L.geoJson(geojsonData, {
-                style: { color: '#00ff00', weight: 1, opacity: 0.3, fillOpacity: 0 }
+                style: {
+                    color: '#00ff00',
+                    weight: 1,
+                    opacity: 0.3,
+                    fillOpacity: 0
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.on('mouseover', function() { this.setStyle({ opacity: 0.8, weight: 2 }); });
+                    layer.on('mouseout', function() { this.setStyle({ opacity: 0.3, weight: 1 }); });
+                }
             }).addTo(map);
         });
 
-    // --- НОВО: ЛИНИЯ НА ФРОНТА И ОКУПИРАНИ ЗОНИ (Директно в кода) ---
+    // --- СЕКЦИЯ: ТАКТИЧЕСКА КАРТА (НОВО) ---
     
-    // Координати за фронтовата линия (през ключови точки)
+    // Координати за фронтовата линия (през ключови точки от Херсон до Харков)
     var frontLineCoords = [
         [46.5, 32.3], [46.8, 33.5], [47.5, 35.3], [48.0, 37.6], 
         [48.6, 38.0], [49.5, 38.0], [50.1, 37.8]
     ];
     
-    // Червена прекъсната линия (Tactical Line)
+    // Червена прекъсната линия (Tactical Line) - КАТО В LIVEUAMAP
     L.polyline(frontLineCoords, {
         color: '#ff0000',
         weight: 4,
@@ -51,7 +62,7 @@ window.onload = function() {
         dashArray: '8, 12'
     }).addTo(map).bindTooltip("АКТИВЕН ФРОНТ");
 
-    // Червена зона (Окупирана територия - Крим и Донбас)
+    // Червена зона (Окупирана територия - Крим и Източна Украйна)
     var occupationZone = [
         [46.0, 33.0], [46.8, 34.5], [47.2, 37.8], [48.5, 39.5], 
         [50.0, 38.5], [50.0, 40.0], [44.0, 40.0], [44.0, 33.0]
@@ -66,7 +77,7 @@ window.onload = function() {
 
     // -----------------------------------------------------------
 
-    // 3. ЗАРЕЖДАНЕ НА КОНФЛИКТИТЕ (conflicts.json)
+    // 3. ЗАРЕЖДАНЕ НА ДАННИТЕ (conflicts.json)
     fetch('conflicts.json')
         .then(response => response.json())
         .then(data => {
@@ -76,8 +87,9 @@ window.onload = function() {
             let countries = new Set();
 
             data.forEach(point => {
+                // Пулсиращи маркери
                 let marker = L.circleMarker([point.lat, point.lon], {
-                    radius: 12, // Малко по-големи точки за видимост
+                    radius: 12, 
                     fillColor: getColor(point.type),
                     color: "#fff",
                     weight: 2,
@@ -88,9 +100,11 @@ window.onload = function() {
 
                 marker.bindTooltip(point.country);
 
+                // Клик събитие за детайли в страничния панел
                 marker.on('click', function(e) {
                     map.setView(e.target.getLatLng(), 6);
 
+                    // Крием жертвите, ако са 0
                     let fatalitiesHTML = (point.fatalities && point.fatalities > 0) 
                         ? `<p style="font-size: 16px; color: #eee; margin: 10px 0;">💀 <strong>Жертви:</strong> ${point.fatalities}</p>` 
                         : "";
@@ -114,6 +128,7 @@ window.onload = function() {
                 if (point.country) countries.add(point.country);
             });
 
+            // Обновяване на Dashboard статистиката
             document.getElementById('active-events').innerText = `Active events: ${data.length}`;
             document.getElementById('total-fatalities').innerText = `Total fatalities: ${totalFatalities}`;
             document.getElementById('countries-affected').innerText = `Countries affected: ${countries.size}`;
@@ -124,5 +139,6 @@ window.onload = function() {
             document.getElementById('news-content').innerHTML = "<p style='color:red;'>Провери conflicts.json за грешки!</p>";
         });
 
+    // Опресняване на размера на картата
     setTimeout(function() { map.invalidateSize(); }, 500);
 };
