@@ -119,5 +119,41 @@
         "description": "Latest report from international sources regarding USA.",
         "fatalities": "0",
         "link": "https://www.theguardian.com/us-news/live/2026/feb/19/donald-trump-first-board-of-peace-washington-us-politics-live"
-    }
+    },
+  {
+    "country": "Ukraine",
+    "title": "FRONTLINE UPDATE: INTENSE CLASHES IN EASTERN UKRAINE",
+    "description": "Kyiv reports heavy defensive battles as tactical maneuvers continue on both sides.",
+    "fatalities": 85,
+    "lat": 48.3794,
+    "lon": 38.0297,
+    "link": "https://liveuamap.com"
+  },
+  {
+    "country": "Poland",
+    "title": "NATO DEFENSE READINESS: TROOP MOVEMENTS NEAR BORDER",
+    "description": "Increased aerial activity and ground drills reported in eastern Poland as part of security reinforcement.",
+    "fatalities": 0,
+    "lat": 52.2370,
+    "lon": 23.0670,
+    "link": "https://www.nato.int"
+  },
+  {
+    "country": "Estonia",
+    "title": "CYBER ATTACK: GOVERNMENT INFRASTRUCTURE TARGETED",
+    "description": "Massive DDoS attack detected against Estonian state portals. IT units on high alert.",
+    "fatalities": 0,
+    "lat": 59.4370,
+    "lon": 24.7535,
+    "link": "https://www.bbc.com/news"
+  },
+  {
+    "country": "Germany",
+    "title": "SECURITY ALERT: MILITARY FACILITY SURVEILLANCE",
+    "description": "Unknown drones spotted over Ramstein Air Base. Security protocols engaged.",
+    "fatalities": 0,
+    "lat": 49.4447,
+    "lon": 7.5905,
+    "link": "https://www.dw.com"
+  }
 ]
