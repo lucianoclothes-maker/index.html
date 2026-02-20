@@ -14,31 +14,36 @@ FEEDS = [
 
 geolocator = Nominatim(user_agent="global_conflict_monitor_v6")
 
-# --- ТУК Е НОВИЯТ КОД ---
 def extract_info(text):
-    # Локации
+    # Локации (Градове и Държави)
     locations = {
-        "Ukraine": ["Kyiv", "Kharkiv", "Donetsk", "Crimea", "Odesa", "Kursk", "Ukraine", "Russia"],
-        "Middle East": ["Gaza", "Israel", "Lebanon", "Iran", "Yemen", "Rafah", "Tehran", "Tel Aviv"],
-        "Africa": ["Sudan", "Mali", "Congo", "Khartoum"]
+        "Ukraine": ["Kyiv", "Kharkiv", "Donetsk", "Crimea", "Odesa", "Kursk", "Ukraine", "Russia", "Bakhmut", "Lyman"],
+        "Middle East": ["Gaza", "Israel", "Lebanon", "Iran", "Yemen", "Rafah", "Tehran", "Tel Aviv", "Beirut", "Red Sea"],
+        "Africa": ["Sudan", "Mali", "Congo", "Khartoum", "Darfur", "Somalia", "Ethiopia"],
+        "Asia": ["Taiwan", "North Korea", "South Korea", "Myanmar"]
     }
     
-    # Ключови думи за ИКОНКИ
+    # РАЗШИРЕНИ Ключови думи за ИКОНКИ
     event_map = {
-        "Airstrike": ["airstrike", "missile", "rocket", "bombing", "strikes"],
-        "Explosion": ["explosion", "blast", "shelling", "artillery", "pounding"],
-        "Naval": ["ship", "vessel", "navy", "sea", "maritime", "boat", "crossing"],
-        "Drone": ["drone", "uav", "shahed"],
-        "Clashes": ["clashes", "fighting", "battle", "infantry", "siege"]
+        "Airstrike": ["airstrike", "missile", "rocket", "bombing", "strikes", "air strike", "attacked", "intercepted"],
+        "Explosion": ["explosion", "blast", "shelling", "artillery", "pounding", "destroyed", "hit", "fire", "damaged"],
+        "Naval": ["ship", "vessel", "navy", "sea", "maritime", "boat", "crossing", "port", "black sea", "cargo"],
+        "Drone": ["drone", "uav", "shahed", "quadcopter", "unmanned", "fpv"],
+        "Clashes": ["clashes", "fighting", "battle", "infantry", "siege", "forces", "military", "clash", "offensive", "warrior"]
     }
 
     found_city = None
     found_region = "World"
+    
+    # Търсене на локация
     for region, cities in locations.items():
         for city in cities:
             if city.lower() in text.lower():
                 found_city, found_region = city, region
+                break
+        if found_city: break
 
+    # Търсене на тип събитие (Иконка)
     found_type = "Breaking News"
     for event, keywords in event_map.items():
         if any(k in text.lower() for k in keywords):
@@ -46,43 +51,16 @@ def extract_info(text):
             break
             
     return found_city, found_region, found_type
-# ------------------------
 
 def run_bot():
     all_events = []
-    print(f"🌍 Стартирам мониторинг с икони...")
+    print(f"🌍 Стартирам мониторинг и разпознаване на икони...")
 
     for url in FEEDS:
         try:
             response = requests.get(url, timeout=15)
+            # По-добро чистене на заглавията
             titles = re.findall(r'<title>(.*?)</title>', response.text)
             links = re.findall(r'<link>(.*?)</link>', response.text)
             
-            for i in range(len(titles)):
-                title = titles[i].replace("<![CDATA[", "").replace("]]>", "")
-                
-                # ИЗПОЛЗВАМЕ НОВАТА ФУНКЦИЯ ТУК
-                city, region, event_type = extract_info(title)
-                
-                if city:
-                    location = geolocator.geocode(city)
-                    if location:
-                        all_events.append({
-                            "country": region,
-                            "lat": location.latitude,
-                            "lon": location.longitude,
-                            "date": time.strftime("%Y-%m-%d"),
-                            "type": event_type, # Вече записва конкретния тип (Naval, Drone и т.н.)
-                            "title": title[:110],
-                            "link": links[i] if i < len(links) else url
-                        })
-        except: continue
-    
-    unique_events = { (e['lat'], e['lon']): e for e in all_events }.values()
-    with open('conflicts.json', 'w', encoding='utf-8') as f:
-        json.dump(list(unique_events), f, indent=4, ensure_ascii=False)
-    
-    print(f"✅ Готово! Намерих {len(unique_events)} събития с категории.")
-
-if __name__ == "__main__":
-    run_bot()
+            for i in range(
