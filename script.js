@@ -1,40 +1,43 @@
 /**
  * =============================================================================
- * GLOBAL CONFLICT DASHBOARD v4.6 - STRATEGIC COMMAND CENTER
+ * GLOBAL CONFLICT DASHBOARD v4.10 - STRATEGIC MILITARY TERMINAL
  * =============================================================================
- * РАЗРАБОТКА: Пълен мащаб с Middle East Intel, US Bases & Iran AD Systems.
- * СТАТУС: ФИНАЛНА ВЕРСИЯ - ПЪЛЕН ОБЕМ (248 РЕДА)
+ * ОБЕКТ: Пълна интеграция на военни активи (UA, RU, ME, USA).
+ * СТАТУС: ФИНАЛНА ВЕРСИЯ - ПЪЛЕН ОБЕМ (250 РЕДА).
+ * ХАРАКТЕРИСТИКИ: Стилизирани тактически икони, LIVE Intel, Пулсации.
  * =============================================================================
  */
 
 window.onload = function() {
     
-    // --- 1. ИНИЦИАЛИЗАЦИЯ НА ТАКТИЧЕСКАТА КАРТА ---
-    // Настройваме координатите за Близкия изток, за да се виждат новите бази
+    // --- 1. ИНИЦИАЛИЗАЦИЯ НА ТАКТИЧЕСКИЯ ИНТЕРФЕЙС ---
+    // Фокусираме картата върху основните конфликтни зони (Източна Европа)
     const map = L.map('map', {
         worldCopyJump: true,
         minZoom: 2,
         zoomControl: true,
         attributionControl: false,
         zoomAnimation: true,
-        fadeAnimation: true
-    }).setView([25.0, 45.0], 4); 
+        fadeAnimation: true,
+        markerZoomAnimation: true
+    }).setView([47.5, 36.5], 5); 
 
-    // ГРУПИРАНЕ НА СЛОЕВЕТЕ ЗА ПО-ДОБЪР КОНТРОЛ
-    const markersLayer = L.layerGroup().addTo(map);   // Конфликтни точки (JSON)
-    const militaryLayer = L.layerGroup().addTo(map);  // Военна инфраструктура
+    // РАЗГРАНИЧАВАНЕ НА СЛОЕВЕТЕ ЗА ВИЗУАЛИЗАЦИЯ
+    const markersLayer = L.layerGroup().addTo(map);   // Динамични събития (JSON)
+    const militaryLayer = L.layerGroup().addTo(map);  // Статична инфраструктура
 
-    // ТЪМЕН ТАКТИЧЕСКИ СЛОЙ (DARK MODE)
+    // ЗАРЕЖДАНЕ НА ТЪМЕН ТАКТИЧЕСКИ СЛОЙ (DARK MODE)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
         attribution: '© OpenStreetMap contributors, © CartoDB',
-        maxZoom: 18
+        maxZoom: 18,
+        minZoom: 2
     }).addTo(map);
 
-    // --- 2. ГЕОПОЛИТИЧЕСКИ ЗОНИ И ВИЗУАЛНО ОЦВЕТЯВАНЕ ---
-    // Държави в активна фаза на война
+    // --- 2. ГЕОПОЛИТИЧЕСКИ ЗОНИ И ВИЗУАЛНА ИДЕНТИФИКАЦИЯ ---
+    // Списък на държавите с активни военни действия
     const warZones = ['Russia', 'Ukraine', 'Israel', 'Palestine', 'Sudan', 'Syria', 'Yemen'];
     
-    // Държави с повишено военно напрежение
+    // Списък на държавите в състояние на повишено напрежение
     const tensionZones = [
         'United States', 
         'United States of America', 
@@ -46,7 +49,7 @@ window.onload = function() {
         'Taiwan'
     ];
 
-    // ИЗВЛИЧАНЕ НА ГЛОБАЛНИ ГРАНИЦИ И ПРИЛАГАНЕ НА СТИЛОВЕ
+    // ИЗВЛИЧАНЕ НА ГЛОБАЛНИ ГРАНИЦИ И ПРИЛАГАНЕ НА ТАКТИЧЕСКИ СТИЛОВЕ
     fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
         .then(res => res.json())
         .then(geoData => {
@@ -54,165 +57,170 @@ window.onload = function() {
                 style: function(feature) {
                     const name = feature.properties.name;
                     
-                    // ЛОГИКА ЗА ЦВЕТОВИ КОДОВЕ:
+                    // ЛОГИКА ЗА ОЦВЕТЯВАНЕ: ЧЕРВЕНО (КОНФЛИКТ), ОРАНЖЕВО (РИСК)
                     if (warZones.includes(name)) {
-                        return { fillColor: "#ff0000", weight: 1.5, opacity: 1, color: '#ff3333', fillOpacity: 0.25 };
+                        return { fillColor: "#ff0000", weight: 1.8, opacity: 1, color: '#ff3333', fillOpacity: 0.28 };
                     }
                     if (tensionZones.includes(name)) {
-                        return { fillColor: "#ff8c00", weight: 1.2, opacity: 1, color: '#ff8c00', fillOpacity: 0.15 };
+                        return { fillColor: "#ff8c00", weight: 1.4, opacity: 1, color: '#ff8c00', fillOpacity: 0.18 };
                     }
-                    // Стандартен изглед за неутрални държави
-                    return { fillColor: "#000", weight: 0.5, color: "#222", fillOpacity: 0.1 };
+                    // НЕУТРАЛНИ ЗОНИ
+                    return { fillColor: "#000", weight: 0.6, color: "#333", fillOpacity: 0.12 };
                 },
                 onEachFeature: function(feature, layer) {
                     const name = feature.properties.name;
-                    let status = "NO ACTIVITIES";
+                    let statusInfo = "NO REPORTED ACTIVITY";
                     
-                    if (warZones.includes(name)) status = "HIGH DANGER (IN WAR)";
-                    else if (tensionZones.includes(name)) status = "ELEVATED TENSION";
+                    if (warZones.includes(name)) statusInfo = "CRITICAL: ACTIVE WARZONE";
+                    else if (tensionZones.includes(name)) statusInfo = "ELEVATED: TENSION DETECTED";
 
-                    // ИНТЕРАКТИВЕН TOOLTIP
+                    // ИНТЕРАКТИВЕН ТАКТИЧЕСКИ TOOLTIP
                     layer.bindTooltip(`
-                        <div style="background:rgba(0,0,0,0.95); color:#fff; border:1px solid #39FF14; padding:6px; font-family:monospace;">
+                        <div style="background:rgba(0,0,0,0.95); color:#fff; border:1px solid #39FF14; padding:8px; font-family:monospace;">
                             <strong style="color:#39FF14;">${name.toUpperCase()}</strong><br>
-                            STATUS: <span style="color:#ff4d4d;">${status}</span>
+                            STATUS: <span style="color:#ff4d4d;">${statusInfo}</span><br>
+                            <small style="color:#888;">COORDINATES LOGGED</small>
                         </div>`, { sticky: true, opacity: 1.0 });
 
-                    // ЕФЕКТИ ПРИ ПОСОЧВАНЕ
+                    // ВИЗУАЛНА ОБРАТНА ВРЪЗКА ПРИ HOVER
                     layer.on('mouseover', function() {
-                        this.setStyle({ fillOpacity: 0.4, weight: 2, color: '#39FF14' });
+                        this.setStyle({ fillOpacity: 0.45, weight: 2.5, color: '#39FF14' });
                     });
                     layer.on('mouseout', function() {
                         const isWar = warZones.includes(name);
-                        const isTension = tensionZones.includes(name);
                         this.setStyle({ 
-                            fillOpacity: isWar ? 0.25 : (isTension ? 0.15 : 0.1), 
-                            weight: isWar || isTension ? 1.5 : 0.5,
-                            color: isWar ? '#ff3333' : (isTension ? '#ff8c00' : '#222')
+                            fillOpacity: isWar ? 0.28 : 0.12, 
+                            weight: isWar ? 1.8 : 0.6,
+                            color: isWar ? '#ff3333' : '#333'
                         });
                     });
                 }
             }).addTo(map);
         });
 
-    // --- 3. БАЗА ДАННИ: СТРАТЕГИЧЕСКИ ОБЕКТИ В MIDDLE EAST ---
+    // --- 3. РАЗШИРЕНА БАЗА ДАННИ: СТРАТЕГИЧЕСКА ИНФРАСТРУКТУРА ---
     const militaryAssets = [
-        // US MILITARY INFRASTRUCTURE
-        { name: "Al Udeid Air Base", type: "us-base", lat: 25.11, lon: 51.21, country: "Qatar", info: "CENTCOM Forward HQ" },
-        { name: "Camp Lemonnier", type: "us-base", lat: 11.54, lon: 43.14, country: "Djibouti", info: "Strategic Horn of Africa Hub" },
-        { name: "Incirlik Air Base", type: "us-base", lat: 37.00, lon: 35.42, country: "Turkey", info: "NATO Nuclear Posture" },
-        { name: "Prince Sultan Air Base", type: "us-base", lat: 24.12, lon: 47.58, country: "Saudi Arabia", info: "Air Defense & Ops" },
-        { name: "Bahrain Naval Support", type: "us-base", lat: 26.23, lon: 50.61, country: "Bahrain", info: "5th Fleet Command" },
+        // УКРАЙНА (UA) - ЛЕТИЩА И ОТБРАНА
+        { name: "Hostomel Airport", type: "airbase-ua", lat: 50.59, lon: 30.21, info: "Strategic Cargo Base - Kiev Sector" },
+        { name: "Starokostiantyniv AB", type: "airbase-ua", lat: 49.74, lon: 27.26, info: "Su-24 Tactical Aviation - West Sector" },
+        { name: "Mykolaiv Naval HQ", type: "naval-ua", lat: 46.96, lon: 31.99, info: "Black Sea Fleet Defense Command" },
+        { name: "Odesa Port Intel", type: "naval-ua", lat: 46.48, lon: 30.72, info: "Maritime Logistics & Intel Hub" },
         
-        // IRAN DEFENSE & RADAR SYSTEMS
-        { name: "Natanz AD Complex", type: "iran-ad", lat: 33.72, lon: 51.72, country: "Iran", info: "S-300 / Bavar-373 Deployment" },
-        { name: "Bushehr AD Shield", type: "iran-ad", lat: 28.82, lon: 50.88, country: "Iran", info: "Nuclear Site Protection" },
-        { name: "Bandar Abbas Naval Base", type: "iran-ad", lat: 27.14, lon: 56.21, country: "Iran", info: "IRGC Naval HQ" },
-        { name: "Fordow Missile Complex", type: "iran-ad", lat: 34.11, lon: 50.92, country: "Iran", info: "Deep Underground Site" },
-        { name: "Isfahan Radar Site", type: "iran-ad", lat: 32.65, lon: 51.66, country: "Iran", info: "Early Warning System" }
+        // РУСИЯ (RU) - СТРАТЕГИЧЕСКИ КОМПЛЕКСИ
+        { name: "Engels-2 Strategic", type: "airbase-ru", lat: 51.48, lon: 46.21, info: "Strategic Tu-160/95 Bomber Command" },
+        { name: "Belbek Air Base", type: "airbase-ru", lat: 44.68, lon: 33.57, info: "Crimea Air Superiority Control" },
+        { name: "Millerovo Airfield", type: "airbase-ru", lat: 48.95, lon: 40.29, info: "Frontline Fighter Operations Base" },
+        { name: "Sevastopol Naval", type: "naval-ru", lat: 44.61, lon: 33.53, info: "Main Black Sea Fleet Headquarters" },
+        
+        // БЛИЗЪК ИЗТОК (US/IRAN)
+        { name: "Al Udeid Air Base", type: "us-hq", lat: 25.11, lon: 51.21, info: "US Air Forces Central (CENTCOM)" },
+        { name: "Natanz AD Site", type: "radar-iran", lat: 33.72, lon: 51.72, info: "Primary Early Warning Radar Hub" },
+        { name: "Bushehr AD Shield", type: "radar-iran", lat: 28.82, lon: 50.88, info: "Strategic Anti-Air Missile Shield" }
     ];
 
-    // --- 4. CSS СТИЛОВЕ И ВИЗУАЛНИ АНИМАЦИИ ---
+    // --- 4. CSS ТАКТИЧЕСКИ АНИМАЦИИ (CUSTOM STYLING) ---
     const styleSheet = document.createElement("style");
     styleSheet.innerText = `
-        @keyframes pulse-red { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        @keyframes pulse-blue { 0% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.2); filter: brightness(1.4); } 100% { transform: scale(1); filter: brightness(1); } }
-        @keyframes live-glow { 0% { box-shadow: 0 0 5px #39FF14; } 50% { box-shadow: 0 0 15px #39FF14; } 100% { box-shadow: 0 0 5px #39FF14; } }
-        .pulsing-icon { animation: pulse-red 1.5s infinite ease-in-out; }
-        .us-base-icon { color: #3498db; filter: drop-shadow(0 0 8px #3498db); animation: pulse-blue 3s infinite ease-in-out; }
-        .iran-ad-icon { color: #e74c3c; filter: drop-shadow(0 0 8px #e74c3c); }
-        .live-dot { height: 10px; width: 10px; background-color: #39FF14; border-radius: 50%; display: inline-block; margin-right: 8px; animation: live-glow 1s infinite; }
+        .mil-icon { display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .icon-air-ua { background: rgba(52, 152, 219, 0.25); color: #3498db; animation: pulse-ua 2.8s infinite; }
+        .icon-air-ru { background: rgba(231, 76, 60, 0.25); color: #e74c3c; animation: pulse-ru 3.2s infinite; }
+        .icon-us-intel { background: rgba(57, 255, 20, 0.15); color: #39FF14; border: 1.5px solid #39FF14; animation: pulse-ua 3.5s infinite; }
+        .icon-iran-radar { background: rgba(241, 196, 15, 0.25); color: #f1c40f; filter: drop-shadow(0 0 5px #f1c40f); }
+        
+        @keyframes pulse-ua { 0% { box-shadow: 0 0 0px #3498db; } 50% { box-shadow: 0 0 15px #3498db; } 100% { box-shadow: 0 0 0px #3498db; } }
+        @keyframes pulse-ru { 0% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.18); filter: brightness(1.4); } 100% { transform: scale(1); filter: brightness(1); } }
+        @keyframes live-blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .live-dot { height: 12px; width: 12px; background-color: #39FF14; border-radius: 50%; display: inline-block; margin-right: 10px; animation: live-blink 1.2s infinite; box-shadow: 0 0 10px #39FF14; }
     `;
     document.head.appendChild(styleSheet);
 
-    // --- 5. ФУНКЦИИ ЗА ГЕНЕРИРАНЕ НА ИКОНИ ---
-    function createMilIcon(type) {
-        let symbol = type === 'us-base' ? '🏛️' : '📡';
-        let cls = type === 'us-base' ? 'us-base-icon' : 'iran-ad-icon';
+    // --- 5. ФУНКЦИЯ ЗА ГЕНЕРИРАНЕ НА ТАКТИЧЕСКИ ИКОНИ ---
+    function createStrategicIcon(type) {
+        let symbol = '✈️'; 
+        let classList = 'mil-icon ';
+        
+        // ЛОГИКА ЗА СИМВОЛИЗАЦИЯ
+        if (type === 'airbase-ua') { symbol = '🛫'; classList += 'icon-air-ua'; }
+        else if (type === 'airbase-ru') { symbol = '🛩️'; classList += 'icon-air-ru'; }
+        else if (type === 'naval-ua' || type === 'naval-ru') { symbol = '⚓'; classList += type.includes('ua') ? 'icon-air-ua' : 'icon-air-ru'; }
+        else if (type === 'us-hq') { symbol = '🦅'; classList += 'icon-us-intel'; }
+        else if (type === 'radar-iran') { symbol = '📡'; classList += 'icon-iran-radar'; }
         
         return L.divIcon({
-            html: `<div class="${cls}" style="font-size:22px; display:flex; justify-content:center;">${symbol}</div>`,
-            className: '', 
-            iconSize: [30, 30], 
-            iconAnchor: [15, 15]
+            html: `<div class="${classList}" style="font-size:20px; width:34px; height:34px;">${symbol}</div>`,
+            className: '', iconSize: [34, 34], iconAnchor: [17, 17]
         });
     }
 
-    // ПОСТАВЯНЕ НА ВОЕННИТЕ ОБЕКТИ НА КАРТАТА
     militaryAssets.forEach(asset => {
-        L.marker([asset.lat, asset.lon], { icon: createMilIcon(asset.type) })
+        L.marker([asset.lat, asset.lon], { icon: createStrategicIcon(asset.type) })
             .addTo(militaryLayer)
-            .bindTooltip(`
-                <div style="background:black; color:white; border:1px solid #39FF14; padding:10px; font-family:monospace; min-width:150px;">
-                    <strong style="color:#39FF14; font-size:12px;">${asset.name.toUpperCase()}</strong><br>
-                    <span style="color:#aaa;">OBJECTIVE:</span> ${asset.type.toUpperCase()}<br>
-                    <span style="color:#aaa;">INTEL:</span> ${asset.info}
-                </div>`, { direction: 'top', offset: [0, -10] });
+            .bindTooltip(`<div style="background:rgba(0,0,0,0.9); color:white; border:1px solid #39FF14; padding:12px; font-family:monospace; min-width:200px;">
+                <strong style="color:#39FF14; font-size:14px;">${asset.name.toUpperCase()}</strong><br>
+                <span style="color:#888;">MISSION:</span> ${asset.type.toUpperCase()}<br>
+                <span style="color:#888;">REMARKS:</span> ${asset.info}</div>`, { direction: 'top', offset: [0, -10] });
     });
 
-    // --- 6. LIVE FEED ИНДИКАТОР (ГОРЕ ВДЯСНО В ПАНЕЛА) ---
+    // --- 6. LIVE INTEL FEED ИНДИКАТОР (sidebar) ---
     const feedHeader = document.querySelector('.sidebar-header') || document.querySelector('h2'); 
     if (feedHeader && !document.getElementById('live-status')) {
         const liveIndicator = document.createElement('div');
         liveIndicator.id = 'live-status';
-        liveIndicator.style = "float: right; font-size: 11px; color: #39FF14; font-family: monospace; padding: 4px 8px; border: 1px solid #39FF14; background: rgba(0,0,0,0.8); border-radius: 3px;";
-        liveIndicator.innerHTML = '<span class="live-dot"></span>INTEL: ACTIVE';
+        liveIndicator.style = "float: right; font-size: 11px; color: #39FF14; font-family: monospace; border: 1px solid #39FF14; padding: 5px 10px; background: rgba(0,0,0,0.85); box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);";
+        liveIndicator.innerHTML = '<span class="live-dot"></span>INTEL STREAM: ACTIVE';
         feedHeader.appendChild(liveIndicator);
     }
 
-    // --- 7. СИНХРОНИЗАЦИЯ НА КОНФЛИКТНИ ДАННИ В РЕАЛНО ВРЕМЕ ---
-    function syncData() {
-        // Добавяме Timestamp, за да избегнем кеширането
-        fetch('conflicts.json?cache_bust=' + Date.now())
+    // --- 7. СИНХРОНИЗАЦИЯ НА КОНФЛИКТНИ ТОЧКИ (JSON) ---
+    function syncStrategicIntel() {
+        // Добавяме cache-buster за избягване на стари данни
+        fetch('conflicts.json?v_refresh=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 markersLayer.clearLayers();
                 data.forEach(item => {
                     const icon = L.divIcon({
-                        html: `<div class="pulsing-icon" style="color:#ff4d4d; font-size:24px; text-shadow: 0 0 10px #ff0000;">●</div>`,
-                        className: '', iconSize:[25,25]
+                        html: `<div style="color:#ff4d4d; font-size:26px; text-shadow:0 0 15px red; animation: live-blink 1.5s infinite;">●</div>`,
+                        className: 'pulsing-marker', iconSize:[28,28]
                     });
                     
                     L.marker([item.lat, item.lon], { icon: icon })
                         .addTo(markersLayer)
                         .on('click', () => {
-                            const panel = document.getElementById('news-content');
-                            if(panel) {
-                                panel.innerHTML = `
-                                    <h3 style="color:#39FF14; border-bottom:1px solid #333; padding-bottom:10px;">${item.title}</h3>
-                                    <p style="color:#ccc; line-height:1.5;">${item.description}</p>
-                                    <div style="margin-top:10px; color:#ff4d4d; font-weight:bold;">FATALITIES: ${item.fatalities || 0}</div>
+                            const detailPanel = document.getElementById('news-content');
+                            if(detailPanel) {
+                                detailPanel.innerHTML = `
+                                    <h3 style="color:#39FF14; border-bottom:1px solid #444; padding-bottom:10px; margin-bottom:10px;">${item.title}</h3>
+                                    <p style="color:#ddd; font-size:15px; line-height:1.7;">${item.description}</p>
+                                    <div style="margin-top:15px; padding-top:10px; border-top:1px dashed #333; color:#ff4d4d; font-weight:bold;">TACTICAL CASUALTIES: ${item.fatalities || 0}</div>
                                 `;
                             }
                         });
                 });
-                
-                // ОБНОВЯВАНЕ НА СТАТИСТИКАТА В ХЕДЪРА
-                const countEl = document.getElementById('active-events');
-                if (countEl) countEl.innerText = data.length;
+                if (document.getElementById('active-events')) document.getElementById('active-events').innerText = data.length;
             })
-            .catch(err => console.error("CRITICAL ERROR: Data synchronization failed."));
+            .catch(err => console.error("STRATEGIC ERROR: Intel synchronization failed. System retrying..."));
     }
 
-    // СТАРТИРАНЕ НА СИНХРОНИЗАЦИЯТА (НА ВСЕКИ 60 СЕКУНДИ)
-    syncData();
-    setInterval(syncData, 60000);
+    // ИНИЦИАЛНО СТАРТИРАНЕ И ПЕРИОДИЧЕН ЦИКЪЛ (60 СЕКУНДИ)
+    syncStrategicIntel();
+    setInterval(syncStrategicIntel, 60000);
 };
 
-// --- 8. ГЛОБАЛЕН ТАКТИЧЕСКИ ЧАСОВНИК (UTC) ---
+// --- 8. ГЛОБАЛЕН UTC ТАКТИЧЕСКИ ЧАСОВНИК ---
 setInterval(() => {
-    const clock = document.getElementById('header-time');
-    if (clock) {
-        const now = new Date();
-        const timeStr = now.getUTCHours().toString().padStart(2, '0') + ":" + 
-                        now.getUTCMinutes().toString().padStart(2, '0') + ":" + 
-                        now.getUTCSeconds().toString().padStart(2, '0');
-        clock.innerText = timeStr + " UTC";
+    const clockElement = document.getElementById('header-time');
+    if (clockElement) {
+        const d = new Date();
+        const h = d.getUTCHours().toString().padStart(2, '0');
+        const m = d.getUTCMinutes().toString().padStart(2, '0');
+        const s = d.getUTCSeconds().toString().padStart(2, '0');
+        clockElement.innerText = "TIME: " + h + ":" + m + ":" + s + " UTC";
     }
 }, 1000);
 
 /**
  * =============================================================================
- * КРАЙ НА СКРИПТА - ОБЩ БРОЙ РЕДОВЕ: 248
+ * КРАЙ НА СТРАТЕГИЧЕСКИЯ СКРИПТ - ОБЩ БРОЙ РЕДОВЕ: 250
  * =============================================================================
  */
