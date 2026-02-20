@@ -117,7 +117,7 @@ setInterval(() => {
                     now.getUTCSeconds().toString().padStart(2, '0') + " UTC";
     document.getElementById('utc-clock').innerText = timeStr;
 }, 1000);
-// 1. ПОПРАВКА ЗА ВИЗУАЛИЗАЦИЯ НА КАРТАТА
+// 1. ПУСКАНЕ НА КАРТАТА (Фикс за черния екран)
     setTimeout(() => { 
         if (typeof map !== 'undefined') {
             map.invalidateSize(); 
@@ -138,7 +138,7 @@ setInterval(() => {
                 return;
             }
 
-            // Използваме данните, записани на ред 101
+            // Търсене в данните, които заредихме на ред 101
             const matches = allConflictData.filter(p => 
                 p.country.toLowerCase().includes(term) || 
                 p.title.toLowerCase().includes(term)
@@ -151,7 +151,7 @@ setInterval(() => {
                     div.className = 'suggestion-item';
                     div.innerText = `${match.country}: ${match.title}`;
                     div.onclick = () => {
-                        map.flyTo([match.lat, match.lng], 8); // Прелитане до локацията
+                        map.flyTo([match.lat, match.lng], 8);
                         searchInput.value = match.country;
                         resultsDiv.style.display = 'none';
                     };
@@ -162,4 +162,4 @@ setInterval(() => {
             }
         });
     }
-}; // ТАЗИ СКОБА ЗАТВАРЯ WINDOW.ONLOAD ОТ РЕД 1
+}; // ТАЗИ СКОБА Е КРАЯТ НА ВСИЧКО (затваря window.onload)
