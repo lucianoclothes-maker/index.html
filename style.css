@@ -3,51 +3,45 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Спираме скролването на целия сайт */
-    background-color: #111;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; 
+    background-color: #050505;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* 2. Хедър с фиксирана височина */
+/* 2. Хедър */
 header {
-    height: 100px;
-    background: #000;
+    height: 60px; /* Намаляваме го за повече място за картата */
+    background: rgba(0, 0, 0, 0.9);
     color: white;
-    padding: 15px;
+    padding: 0 20px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-bottom: 2px solid #333;
-    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+    position: relative;
+    z-index: 2000;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
-
-#dashboard {
-    display: flex;
-    gap: 15px;
-    font-size: 14px;
-    color: #bbb;
-    margin-top: 5px;
-}
-
-/* 3. Контейнерът */
-.main-container {
-    display: flex;
-    height: calc(100vh - 100px); /* Заема всичко под хедъра */
-    width: 100%;
-}
-
-/* 4. Картата (75% от ширината) */
+/* 3. Картата - СЕГА Е ФОН НА ЦЕЛИЯ ЕКРАН */
 #map {
-    flex: 3;
-    height: 100% !important;
-    background: #1a1a1a;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px) !important;
+    z-index: 1; /* Остава най-отдолу */
 }
 
+/* 4. СТЪКЛЕНИТЕ ПАНЕЛИ (Ефектът от Glint) */
+#left-chat-floating, #news-floating {
+    position: absolute;
+    z-index: 1000; /* Над картата */
+    background: rgba(10, 10, 10, 0.6) !important; /* Прозрачно */
+    backdrop-filter: blur(12px); /* Замъгляване на фона */
+    border: 1px solid rgba(57, 255, 20, 0.2) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+}
 /* 5. Панелът за новини (25% от ширината) */
 #news-sidebar {
     flex: 1;
