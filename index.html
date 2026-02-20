@@ -8,14 +8,20 @@
 </head>
 <body>
     <header>
-        <h1>🌐 Global Conflict Dashboard</h1>
-        <div id="dashboard">
-            <span id="active-events">Active events: 0</span>
-            <span id="total-fatalities">Total fatalities: 0</span>
-            <span id="countries-affected">Countries affected: 0</span>
-            <span id="last-update">Last update: N/A</span>
+    <h1>🌐 Global Conflict Dashboard</h1>
+    <div id="dashboard">
+        <span id="active-events">Active events: 0</span>
+        <span id="total-fatalities">Total fatalities: 0</span>
+        <span id="countries-affected">Countries affected: 0</span>
+        <span id="last-update">Last update: N/A</span>
+
+        <div class="header-ticker">
+            <div class="ticker-content" id="news-ticker">ЗАРЕЖДАНЕ НА ТАКТИЧЕСКИ ДАННИ...</div>
         </div>
-    </header>
+
+        <div class="live-clock" id="utc-clock">00:00:00 UTC</div>
+    </div>
+</header>
 
     <div class="main-container">
         <div id="map"></div>
