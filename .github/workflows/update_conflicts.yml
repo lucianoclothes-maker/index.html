@@ -1,8 +1,8 @@
-name: Update Map Data
+name: Update Conflict Map
 on:
   schedule:
     - cron: '0 * * * *' # Пуска се автоматично на всеки час
-  workflow_dispatch: # Позволява ти да го пуснеш ръчно с бутон
+  workflow_dispatch: # Бутон за ръчно пускане
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
         run: pip install requests geopy
 
       - name: Run bot
-        run: python bot.py
+        run: python bot.py # Тук GitHub пуска твоя нов файл
 
       - name: Commit and push changes
         run: |
