@@ -9,7 +9,7 @@ window.onload = function() {
     var map = L.map('map', { 
         worldCopyJump: true, 
         minZoom: 2 
-    }).setView([35.0, 30.0], 4); 
+    }).setView([48.3, 35.0], 5); // Центрирано към Украйна/Черно море
 
     markersLayer.addTo(map);
 
@@ -62,7 +62,28 @@ window.onload = function() {
         return iconAlert; 
     }
 
-    // --- 4. ЗАРЕЖДАНЕ НА ГРАНИЦИ ---
+    // --- 4. ВОЕННА СИТУАЦИЯ В УКРАЙНА ---
+    var frontLine = [
+        [46.5, 32.3], [46.7, 33.4], [47.4, 35.4], [47.8, 36.5],
+        [48.0, 37.6], [48.6, 38.0], [49.5, 38.1], [50.1, 37.8]
+    ];
+    L.polyline(frontLine, { color: '#ff0000', weight: 4, opacity: 0.7, dashArray: '10, 15' }).addTo(map);
+
+    var occupiedArea = [
+        [46.1, 32.9], [44.4, 33.5], [44.5, 34.2], [45.4, 36.5], 
+        [47.1, 37.6], [48.1, 39.5], [49.6, 40.1], [50.2, 38.5], 
+        [49.0, 38.5], [47.0, 35.0], [46.1, 32.9]
+    ];
+    L.polygon(occupiedArea, { color: '#555', fillColor: '#ff0000', fillOpacity: 0.1, weight: 1 }).addTo(map);
+
+    function addAttackArrow(start, end) {
+        L.polyline([start, end], { color: '#ff4d4d', weight: 3, opacity: 0.8 }).addTo(map);
+        L.circleMarker(end, { radius: 4, color: '#ff4d4d', fillColor: '#ff4d4d', fillOpacity: 1 }).addTo(map);
+    }
+    addAttackArrow([48.1, 38.5], [48.2, 37.3]); // Към Покровск
+    addAttackArrow([49.5, 38.5], [49.4, 37.8]); // Към Купянск
+
+    // --- 5. ЗАРЕЖДАНЕ НА ГРАНИЦИ ---
     fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
         .then(res => res.json()).then(data => {
             L.geoJson(data, {
@@ -74,43 +95,22 @@ window.onload = function() {
             }).addTo(map);
         });
 
-    var fLine = [[46.5, 32.3], [48.0, 37.6], [50.1, 37.8]];
-    L.polyline(fLine, { color: '#ff0000', weight: 3, opacity: 0.5, dashArray: '10, 15' }).addTo(map);
-
-    var oZone = [[46.0, 33.0], [47.2, 37.8], [50.0, 38.5], [44.0, 40.0], [44.0, 33.0]];
-    L.polygon(oZone, { color: '#ff4d4d', fillColor: '#ff0000', fillOpacity: 0.08, weight: 1 }).addTo(map);
-
-    // --- 5. ОСНОВНА ФУНКЦИЯ ЗА ДАННИТЕ ---
+    // --- 6. ОСНОВНА ФУНКЦИЯ ЗА ДАННИТЕ ---
     function loadMapData() {
         fetch('conflicts.json?t=' + new Date().getTime())
             .then(res => res.json())
             .then(data => {
-                // --- ИНТЕЛИГЕНТНА ПРОВЕРКА ЗА ЗВУК ---
                 if (previousEventCount !== 0 && data.length > previousEventCount) {
-                    // Вземаме най-новото събитие (първото в списъка)
                     const latest = data[0]; 
-                    
-                    // Списък с критични ключови думи (добави още ако решиш)
-                    const criticalKeywords = [
-                        'missile', 'rocket', 'nuclear', 'explosion', 'strike', 
-                        'airstrike', 'war', 'genocide', 'killings', 'military build-up',
-                        'ракет', 'удар', 'взрив', 'война', 'ядрен', 'убити'
-                    ];
-
-                    // Проверяваме заглавието и типа
-                    const titleText = latest.title.toLowerCase();
-                    const hasKeyword = criticalKeywords.some(word => titleText.includes(word.toLowerCase()));
+                    const criticalKeywords = ['missile', 'rocket', 'nuclear', 'explosion', 'strike', 'ракет', 'удар', 'взрив', 'war', 'attack'];
+                    const hasKeyword = criticalKeywords.some(word => latest.title.toLowerCase().includes(word));
                     const isUrgentType = ['Airstrike', 'Explosion', 'Nuclear'].includes(latest.type);
 
                     if (hasKeyword || isUrgentType) {
-                        alertSound.play().catch(e => console.log("Sound blocked by browser policy."));
-                        console.log("CRITICAL EVENT DETECTED: Playing sound.");
-                    } else {
-                        console.log("New event, but not critical enough for sound.");
+                        alertSound.play().catch(e => console.log("Sound blocked."));
                     }
                 }
                 previousEventCount = data.length;
-
                 allConflictData = data;
                 markersLayer.clearLayers(); 
                 
@@ -118,17 +118,13 @@ window.onload = function() {
                 let totalDeaths = 0;
 
                 data.forEach(p => {
-                    if (p.fatalities) {
-                        totalDeaths += parseInt(p.fatalities);
-                    }
-
+                    if (p.fatalities) totalDeaths += parseInt(p.fatalities);
                     let marker = L.marker([p.lat, p.lon], { icon: getTacticalIcon(p.type) });
                     marker.addTo(markersLayer);
                     
                     marker.on('click', () => {
                         map.setView([p.lat, p.lon], 6, { animate: true });
                         let twitterHTML = p.twitter_link ? `<div style="margin-top: 15px; max-height: 400px; overflow-y: auto;"><blockquote class="twitter-tweet" data-theme="dark"><a href="${p.twitter_link}"></a></blockquote></div>` : "";
-
                         document.getElementById('news-content').innerHTML = `
                             <div style="border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px;">
                                 <h2 style="color: #ff4d4d; margin: 0;">${p.country}</h2>
@@ -139,7 +135,6 @@ window.onload = function() {
                             <a href="${p.link}" target="_blank" class="news-btn" style="display:block; text-align:center; text-decoration:none; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 10px; margin-top:10px;">ДЕТАЙЛИ</a>`;
                         if (window.twttr) { window.twttr.widgets.load(); }
                     });
-
                     countries.add(p.country);
                 });
 
@@ -154,6 +149,7 @@ window.onload = function() {
     loadMapData();
     setInterval(loadMapData, 60000);
 
+    // --- 7. ТЪРСЕНЕ ---
     const searchInput = document.getElementById('map-search');
     const resultsDiv = document.getElementById('search-results');
     if (searchInput && resultsDiv) {
@@ -176,6 +172,7 @@ window.onload = function() {
     }
 };
 
+// --- 8. UTC ЧАСОВНИК ---
 setInterval(() => {
     const clockEl = document.getElementById('utc-clock');
     if (clockEl) {
