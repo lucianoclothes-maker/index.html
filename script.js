@@ -146,13 +146,12 @@ fetch('conflicts.json')
                     };
                     resultsDiv.appendChild(div);
                 });
-            } else {
-                resultsDiv.style.display = 'none';
-        }
-    });
+    } else {
+        resultsDiv.style.display = 'none';
+    }
+});
 }
 };
-// 3. ЧАСОВНИК (Извън onload, за да е независим)
 setInterval(() => {
     const clockEl = document.getElementById('utc-clock');
     if (clockEl) {
