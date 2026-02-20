@@ -12,41 +12,42 @@ FEEDS = [
     "https://www.militarytimes.com/arc/outboundfeeds/rss/", "https://www.longwarjournal.org/feed"
 ]
 
-geolocator = Nominatim(user_agent="global_conflict_monitor_v6")
+geolocator = Nominatim(user_agent="global_conflict_monitor_v7")
 
 def extract_info(text):
-    # Локации (Градове и Държави)
+    text = text.lower()
+    # Локации
     locations = {
-        "Ukraine": ["Kyiv", "Kharkiv", "Donetsk", "Crimea", "Odesa", "Kursk", "Ukraine", "Russia", "Bakhmut", "Lyman"],
-        "Middle East": ["Gaza", "Israel", "Lebanon", "Iran", "Yemen", "Rafah", "Tehran", "Tel Aviv", "Beirut", "Red Sea"],
-        "Africa": ["Sudan", "Mali", "Congo", "Khartoum", "Darfur", "Somalia", "Ethiopia"],
-        "Asia": ["Taiwan", "North Korea", "South Korea", "Myanmar"]
+        "Ukraine": ["kyiv", "kharkiv", "donetsk", "crimea", "odesa", "kursk", "ukraine", "russia", "bakhmut", "donbas"],
+        "Middle East": ["gaza", "israel", "lebanon", "iran", "yemen", "rafah", "tehran", "tel aviv", "beirut", "red sea", "hamas", "idf", "houthi"],
+        "Africa": ["sudan", "mali", "congo", "khartoum", "darfur", "somalia", "ethiopia", "africa"],
+        "Asia": ["taiwan", "china", "korea", "myanmar"]
     }
     
-    # РАЗШИРЕНИ Ключови думи за ИКОНКИ
+    # СУПЕР АГРЕСИВЕН СПИСЪК ЗА ИКОНКИ
     event_map = {
-        "Airstrike": ["airstrike", "missile", "rocket", "bombing", "strikes", "air strike", "attacked", "intercepted"],
-        "Explosion": ["explosion", "blast", "shelling", "artillery", "pounding", "destroyed", "hit", "fire", "damaged"],
-        "Naval": ["ship", "vessel", "navy", "sea", "maritime", "boat", "crossing", "port", "black sea", "cargo"],
-        "Drone": ["drone", "uav", "shahed", "quadcopter", "unmanned", "fpv"],
-        "Clashes": ["clashes", "fighting", "battle", "infantry", "siege", "forces", "military", "clash", "offensive", "warrior"]
+        "Airstrike": ["airstrike", "missile", "rocket", "bombing", "strikes", "attack", "hit", "targeted", "air strike", "bombed"],
+        "Explosion": ["explosion", "blast", "shelling", "artillery", "pounding", "destroyed", "fire", "killed", "dead", "fatalities"],
+        "Naval": ["ship", "vessel", "navy", "sea", "maritime", "boat", "port", "water", "crossing", "cargo", "black sea"],
+        "Drone": ["drone", "uav", "shahed", "quadcopter", "unmanned", "fpv", "air", "intercepted"],
+        "Clashes": ["clashes", "fighting", "battle", "infantry", "siege", "forces", "military", "war", "army", "clash", "offensive", "soldier"]
     }
 
     found_city = None
     found_region = "World"
     
-    # Търсене на локация
+    # 1. Търсим град или държава
     for region, cities in locations.items():
         for city in cities:
-            if city.lower() in text.lower():
-                found_city, found_region = city, region
+            if city in text:
+                found_city, found_region = city.capitalize(), region
                 break
         if found_city: break
 
-    # Търсене на тип събитие (Иконка)
+    # 2. Търсим тип иконка (ако няма нищо, ще е Breaking News)
     found_type = "Breaking News"
     for event, keywords in event_map.items():
-        if any(k in text.lower() for k in keywords):
+        if any(k in text for k in keywords):
             found_type = event
             break
             
@@ -54,13 +55,16 @@ def extract_info(text):
 
 def run_bot():
     all_events = []
-    print(f"🌍 Стартирам мониторинг и разпознаване на икони...")
+    print(f"🌍 Стартирам претърсване за новини и иконки...")
 
     for url in FEEDS:
         try:
             response = requests.get(url, timeout=15)
-            # По-добро чистене на заглавията
+            # Чистене на XML таговете
             titles = re.findall(r'<title>(.*?)</title>', response.text)
             links = re.findall(r'<link>(.*?)</link>', response.text)
             
-            for i in range(
+            for i in range(len(titles)):
+                title = titles[i].replace("<![CDATA[", "").replace("]]>", "").strip()
+                # Прескачаме ненужни заглавия
+                if len
