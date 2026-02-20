@@ -4,58 +4,71 @@ import re
 from geopy.geocoders import Nominatim
 import time
 
-# Портали (Nitter) - разширен списък
-INSTANCES = ["https://nitter.net", "https://nitter.cz", "https://nitter.privacydev.net", "https://nitter.poast.org", "https://nitter.moomoo.me"]
+# 20+ Водещи източника на новини
+FEEDS = [
+    "https://www.politico.eu/rss", "https://rss.cnn.com/rss/edition_world.rss",
+    "http://feeds.bbci.co.uk/news/world/rss.xml", "https://www.aljazeera.com/xml/rss/all.xml",
+    "https://www.theguardian.com/world/rss", "https://www.reutersagency.com/feed/",
+    "https://www.dw.com/en/top-stories/rss", "https://www.france24.com/en/rss",
+    "https://www.voanews.com/api/z$yite_kq_", "https://www.militarytimes.com/arc/outboundfeeds/rss/",
+    "https://www.defensenews.com/arc/outboundfeeds/rss/", "https://www.longwarjournal.org/feed",
+    "https://nypost.com/news/world/feed/", "https://www.telegraph.co.uk/world-news/rss.xml",
+    "https://www.independent.co.uk/news/world/rss", "https://www.washingtontimes.com/rss/headlines/news/world/",
+    "https://www.kyivpost.com/feed", "https://www.uawire.org/rss",
+    "https://apnews.com/hub/world-news.rss", "https://www.timesofisrael.com/feed/"
+]
 
-# Топ акаунти за история
-ACCOUNTS = ["OSINTtechnical", "DeepStateUA", "UAWeapons", "Liveuamap", "IAPonomarenko"]
+geolocator = Nominatim(user_agent="global_conflict_monitor_v5")
 
-geolocator = Nominatim(user_agent="history_war_tracker_v4")
-
-def extract_data(text):
-    cities = ["Kyiv", "Kharkiv", "Odesa", "Bakhmut", "Avdiivka", "Donetsk", "Lviv", "Zaporizhzhia", "Kherson", "Dnipro", "Mariupol", "Kursk", "Sudzha", "Belgorod", "Crimea"]
-    found_city = next((c for c in cities if c.lower() in text.lower()), None)
-    return found_city
+def extract_geo(text):
+    # Разширен списък за глобални конфликти
+    locations = {
+        "Ukraine": ["Kyiv", "Kharkiv", "Donetsk", "Bakhmut", "Crimea", "Odesa", "Kursk"],
+        "Middle East": ["Gaza", "Rafah", "Beirut", "Tehran", "Tel Aviv", "Red Sea", "Yemen"],
+        "Asia": ["Taiwan", "South China Sea", "Manila", "Seoul"],
+        "Africa": ["Sudan", "Khartoum", "Congo", "Mali"]
+    }
+    for region, cities in locations.items():
+        for city in cities:
+            if city.lower() in text.lower():
+                return city, region
+    return None, None
 
 def run_bot():
     all_events = []
-    print("📜 Започвам изтегляне на историята от акаунтите...")
+    print(f"🌍 Стартирам глобален мониторинг на {len(FEEDS)} медии...")
 
-    for user in ACCOUNTS:
-        for instance in INSTANCES:
-            url = f"{instance}/{user}/rss"
-            try:
-                response = requests.get(url, timeout=10)
-                if response.status_code == 200:
-                    # Извличаме ВСИЧКИ заглавия от историята (обикновено последните 20)
-                    posts = re.findall(r'<title>(.*?)</title>', response.text)
-                    print(f"✅ Взех {len(posts)} поста от историята на {user}")
-                    
-                    for post in posts[1:]: # Прескачаме първото заглавие (името на акаунта)
-                        city = extract_data(post)
-                        if city:
-                            location = geolocator.geocode(city)
-                            if location:
-                                all_events.append({
-                                    "country": "Region",
-                                    "lat": location.latitude,
-                                    "lon": location.longitude,
-                                    "date": time.strftime("%Y-%m-%d"),
-                                    "type": "History Update",
-                                    "title": f"[{user}] {city}: {post[:60]}...",
-                                    "link": f"https://x.com/{user}"
-                                })
-                    break # Ако един портал работи за този акаунт, не хабим другите
-            except:
-                continue
-
-    # Махаме дублиращи се точки за един и същ град, за да е чист мапа
+    for url in FEEDS:
+        try:
+            response = requests.get(url, timeout=15)
+            # Намираме всички <title> и <link> тагове
+            titles = re.findall(r'<title>(.*?)</title>', response.text)
+            links = re.findall(r'<link>(.*?)</link>', response.text)
+            
+            for i in range(len(titles)):
+                title = titles[i].replace("<![CDATA[", "").replace("]]>", "")
+                city, region = extract_geo(title)
+                
+                if city:
+                    location = geolocator.geocode(city)
+                    if location:
+                        all_events.append({
+                            "country": region,
+                            "lat": location.latitude,
+                            "lon": location.longitude,
+                            "date": time.strftime("%Y-%m-%d"),
+                            "type": "Breaking News",
+                            "title": title[:110],
+                            "link": links[i] if i < len(links) else url
+                        })
+        except: continue
+    
+    # Премахване на дубликати и запис
     unique_events = { (e['lat'], e['lon']): e for e in all_events }.values()
-
     with open('conflicts.json', 'w', encoding='utf-8') as f:
         json.dump(list(unique_events), f, indent=4, ensure_ascii=False)
     
-    print(f"🚀 Успех! Напълнихме картата с {len(unique_events)} исторически точки.")
+    print(f"✅ Готово! Картата е обновена с {len(unique_events)} световни новини.")
 
 if __name__ == "__main__":
     run_bot()
