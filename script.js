@@ -74,7 +74,6 @@ window.onload = function() {
             }).addTo(map);
         });
 
-    // Декоративни линии и зони (Украйна пример)
     var fLine = [[46.5, 32.3], [48.0, 37.6], [50.1, 37.8]];
     L.polyline(fLine, { color: '#ff0000', weight: 3, opacity: 0.5, dashArray: '10, 15' }).addTo(map);
 
@@ -86,9 +85,29 @@ window.onload = function() {
         fetch('conflicts.json?t=' + new Date().getTime())
             .then(res => res.json())
             .then(data => {
-                // ПРОВЕРКА ЗА ЗВУК: Изпълнява се само при увеличение на събитията
+                // --- ИНТЕЛИГЕНТНА ПРОВЕРКА ЗА ЗВУК ---
                 if (previousEventCount !== 0 && data.length > previousEventCount) {
-                    alertSound.play().catch(e => console.log("Sound autoplay blocked. Wait for user interaction."));
+                    // Вземаме най-новото събитие (първото в списъка)
+                    const latest = data[0]; 
+                    
+                    // Списък с критични ключови думи (добави още ако решиш)
+                    const criticalKeywords = [
+                        'missile', 'rocket', 'nuclear', 'explosion', 'strike', 
+                        'airstrike', 'war', 'genocide', 'killings', 'military build-up',
+                        'ракет', 'удар', 'взрив', 'война', 'ядрен', 'убити'
+                    ];
+
+                    // Проверяваме заглавието и типа
+                    const titleText = latest.title.toLowerCase();
+                    const hasKeyword = criticalKeywords.some(word => titleText.includes(word.toLowerCase()));
+                    const isUrgentType = ['Airstrike', 'Explosion', 'Nuclear'].includes(latest.type);
+
+                    if (hasKeyword || isUrgentType) {
+                        alertSound.play().catch(e => console.log("Sound blocked by browser policy."));
+                        console.log("CRITICAL EVENT DETECTED: Playing sound.");
+                    } else {
+                        console.log("New event, but not critical enough for sound.");
+                    }
                 }
                 previousEventCount = data.length;
 
@@ -124,7 +143,6 @@ window.onload = function() {
                     countries.add(p.country);
                 });
 
-                // Обновяване на UI
                 document.getElementById('active-events').innerText = "Active events: " + data.length;
                 document.getElementById('total-fatalities').innerText = "Total fatalities: " + totalDeaths;
                 document.getElementById('countries-affected').innerText = "Countries affected: " + countries.size;
@@ -133,11 +151,9 @@ window.onload = function() {
             });
     }
 
-    // Стартиране и интервал за опресняване
     loadMapData();
     setInterval(loadMapData, 60000);
 
-    // --- 6. ТЪРСЕНЕ ---
     const searchInput = document.getElementById('map-search');
     const resultsDiv = document.getElementById('search-results');
     if (searchInput && resultsDiv) {
@@ -160,7 +176,6 @@ window.onload = function() {
     }
 };
 
-// --- 7. UTC ЧАСОВНИК ---
 setInterval(() => {
     const clockEl = document.getElementById('utc-clock');
     if (clockEl) {
