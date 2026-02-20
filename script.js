@@ -11,17 +11,7 @@ window.onload = function() {
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', { attribution: '&copy; CartoDB' }).addTo(map);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', { opacity: 0.5, pane: 'shadowPane' }).addTo(map);
 
-    // --- 2. ВРЪЩАНЕ НА СТАРИТЕ ИКОНИ (КАТО В ЛЕГЕНДАТА) ---
-    const createOldIcon = (symbol, color) => {
-        return L.divIcon({
-            html: `<div style="color: ${color}; font-size: 22px; text-shadow: 0 0 8px #000; font-weight: bold; display: flex; align-items: center; justify-content: center;">${symbol}</div>`,
-            className: '', 
-            iconSize: [30, 30], 
-            iconAnchor: [15, 15]
-        });
-    };
-
-   // --- 2. НЕОНОВИ ИКОНИ С РАЗЛИЧНИ СИМВОЛИ ---
+    // --- 2. НЕОНОВИ ИКОНИ (СИНХРОНИЗИРАНИ С ЛЕГЕНДАТА) ---
     const createNeonIcon = (symbol, color) => {
         return L.divIcon({
             html: `<div style="color: ${color}; font-size: 22px; text-shadow: 0 0 10px ${color}, 0 0 15px ${color}; font-weight: bold; display: flex; align-items: center; justify-content: center;">${symbol}</div>`,
@@ -31,7 +21,6 @@ window.onload = function() {
         });
     };
 
-    // Дефинираме иконите според легендата ти
     const iconClash = createNeonIcon('✖', '#ff4d4d');     // Червен хикс
     const iconExplosion = createNeonIcon('⚠️', '#ffcc00'); // Жълт триъгълник
     const iconNaval = createNeonIcon('🚢', '#3498db');     // Син кораб
@@ -40,13 +29,9 @@ window.onload = function() {
     // --- 3. АВТОМАТИЧНО РАЗПРЕДЕЛЕНИЕ ---
     function getTacticalIcon(type, title) {
         const t = title.toLowerCase();
-        // Ракети и Дронове
         if (t.includes('missile') || t.includes('ракет') || t.includes('drone') || t.includes('дрон')) return iconMissile;
-        // Кораби
         if (type === 'Naval' || t.includes('ship') || t.includes('кораб')) return iconNaval;
-        // Експлозии и Удари
         if (type === 'Explosion' || type === 'Airstrike' || t.includes('удар') || t.includes('взрив')) return iconExplosion;
-        // Всичко останало е Сблъсък (Хикс)
         return iconClash;
     }
 
@@ -67,7 +52,6 @@ window.onload = function() {
             .then(data => {
                 allConflictData = data;
                 markersLayer.clearLayers();
-                
                 let countries = new Set();
                 let totalDeaths = 0;
 
