@@ -5,10 +5,10 @@
         "lon": -76.602191,
         "date": "2026-02-20",
         "type": "Naval",
-        "title": "US says 11 people killed in latest strikes on alleged drug boats",
-        "description": "pThree boats targeted in eastern Pacific and Caribbean as Trump continues pursuit of alleged ‘narco-terrorists’/ppUS military officials have said American forces launched assaults on three alleged drug-smuggling boats, killing 11 in one of the deadliest days of the a href=\"https://www.theguardian.com/us-news/trump-administration\"Trump administration’s/a months-long campaign against alleged traffickers./ppThe military action on Monday brought the number of fatalities caused by US strikes to 145 since September, when a href=\"https://www.theguardian.com/us-news/donaldtrump\"Donald Trump/a called on American armed forces to attack people deemed “narco-terrorists” on small vessels. There have been 42 known strikes in notorious drug-trafficking routes such as the Caribbean Sea and eastern Pacific Ocean, according to the Associated Press a href=\"https://www.military.com/daily-news/2026/02/17/strikes-3-more-alleged-drug-boats-kill-11-people-us-military-says.html\"reported/a./p a href=\"https://www.theguardian.com/us-news/2026/feb/17/us-military-boats-strikes\"Continue reading.../a",
+        "title": "A bar, kitchen and flat-screen TVs: the $70m jet DHS is eyeing for deportations",
+        "description": "pThe department is reportedly considering buying a Boeing plane for deportation flights and for use by Trump officials/ppA $70m aircraft the Department of Homeland Security (DHS) is considering for deportation flights has a luxurious interior and will be used to transport Trump administration officials to engagements in comfort, according to a report published Friday./ppNBC News a href=\"https://www.nbcnews.com/politics/immigration/no-expense-spared-luxury-jet-dhs-wants-buy-deportations-rcna259425\"obtained images/a of the Boeing 737-8 Max plane showing a bedroom with a queen bed, showers, a kitchen, four large flat-screen TVs and a bar./p a href=\"https://www.theguardian.com/us-news/2026/feb/20/luxury-jet-dhs-deportation-flights-trump-officials\"Continue reading.../a",
         "fatalities": "0",
-        "link": "https://www.theguardian.com/us-news/2026/feb/17/us-military-boats-strikes"
+        "link": "https://www.theguardian.com/us-news/2026/feb/20/luxury-jet-dhs-deportation-flights-trump-officials"
     },
     {
         "country": "Middle East",
@@ -26,11 +26,11 @@
         "lat": 32.6475314,
         "lon": 54.5643516,
         "date": "2026-02-20",
-        "type": "Clashes",
-        "title": "Iran says US military build-up ‘unnecessary and unhelpful’, deal achievable",
-        "description": "",
+        "type": "Airstrike",
+        "title": "Trump illegally used executive power to impose global tariffs, supreme court rules",
+        "description": "pUS president vows to enact 10% global baseline tariff after calling the supreme court justices ‘a disgrace to the nation’/pullipa href=\"https://www.theguardian.com/us-news/live/2026/feb/20/us-iran-nuclear-deal-trump-agreement-strikes-latest-news-live-updates\"US politics live – latest updates/a/p/li/ulpThe a href=\"https://www.theguardian.com/us-news/us-supreme-court\"US supreme court/a declared many of a href=\"https://www.theguardian.com/us-news/donaldtrump\"Donald Trump/a’s tariffs illegal on Friday, in a sharp rebuke that topples a key pillar of the president’s aggressive economic agenda./ppIn a 6-3 ruling, the court decided that a 1977 law designed to address national emergencies did not provide the legal justification for most of the Trump administration’s a href=\"https://www.theguardian.com/us-news/trump-tariffs\"tariffs/a on countries across the world. It is the first time the court has overruled one of Trump’s second-term policies./p a href=\"https://www.theguardian.com/us-news/2026/feb/20/trump-supreme-court-tariffs-ruling\"Continue reading.../a",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/news/2026/2/20/iran-says-us-military-build-up-unnecessary-and-unhelpful-deal-achievable?traffic_source=rss"
+        "link": "https://www.theguardian.com/us-news/2026/feb/20/trump-supreme-court-tariffs-ruling"
     },
     {
         "country": "Venezuela",
@@ -97,5 +97,16 @@
         "description": "pMayor says Japanese city will respect donor’s specification that £2.7m gift must be used to repair dilapidated system/ppOsaka has received a hefty gift of gold bars worth 560m yen (£2.7m) from an anonymous donor and a request for its specific use: to fix the Japanese city’s dilapidated water pipes./ppThe gold bars, weighing a total of 21kg (46lb), were given to the Osaka City Waterworks Bureau in November by the donor who wants to help improve ageing water pipes, the mayor, Hideyuki Yokoyama, told reporters on Thursday./p a href=\"https://www.theguardian.com/world/2026/feb/20/osaka-stunned-by-anonymous-gift-of-36m-in-gold-to-fix-ageing-water-pipes\"Continue reading.../a",
         "fatalities": "0",
         "link": "https://www.theguardian.com/world/2026/feb/20/osaka-stunned-by-anonymous-gift-of-36m-in-gold-to-fix-ageing-water-pipes"
+    },
+    {
+        "country": "USA",
+        "lat": 38.8950368,
+        "lon": -77.0365427,
+        "date": "2026-02-20",
+        "type": "Explosion",
+        "title": "History redressed: Melania makes her mark, in a fashion, with Smithsonian gown",
+        "description": "pFirst lady is first in more than 100 years to have two inaugural gowns in museum’s popular collection/ppHer husband has described it as “OUT OF CONTROL”, a place where “everything discussed is how horrible our Country is, how bad Slavery was, and how unaccomplished the downtrodden have been”./ppBut a href=\"https://www.theguardian.com/us-news/melania-trump\"Melania Trump/a, the wife of US president a href=\"https://www.theguardian.com/us-news/donaldtrump\"Donald Trump/a, declared a temporary ceasefire in hostilities with the Smithsonian Institution in Washington on Friday – with the help of a silk gown, diamond brooch and headless mannequin./p a href=\"https://www.theguardian.com/us-news/2026/feb/20/melania-smithsonian-inaugural-dress\"Continue reading.../a",
+        "fatalities": "0",
+        "link": "https://www.theguardian.com/us-news/2026/feb/20/melania-smithsonian-inaugural-dress"
     }
 ]
