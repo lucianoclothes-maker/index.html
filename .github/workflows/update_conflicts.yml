@@ -1,35 +1,31 @@
-name: Update ACLED Conflicts
-
+name: Update Map Data
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # Това ще пуска скрипта автоматично всяка нощ
+    - cron: '0 * * * *' # Пуска се автоматично на всеки час
+  workflow_dispatch: # Позволява ти да го пуснеш ръчно с бутон
 
 jobs:
-  fetch_conflicts:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: '3.9'
 
-      # ЕТО ТУК ДОБАВЯМЕ НУЖНИТЕ БИБЛИОТЕКИ
       - name: Install dependencies
-        run: pip install requests feedparser geopy
+        run: pip install requests geopy
 
-      - name: Fetch data
-        run: python fetch_acled_oauth.py
+      - name: Run bot
+        run: python bot.py
 
-      - name: Commit and push if changed
+      - name: Commit and push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
           git add conflicts.json
-          git commit -m "Update conflict data" || exit 0
+          git commit -m "Auto-update map data" || exit 0
           git push
