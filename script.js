@@ -60,62 +60,61 @@ window.onload = function() {
 
     var oZone = [[46.0, 33.0], [47.2, 37.8], [50.0, 38.5], [44.0, 40.0], [44.0, 33.0]];
     L.polygon(oZone, { color: '#ff4d4d', fillColor: '#ff0000', fillOpacity: 0.08, weight: 1 }).addTo(map);
+// --- 5. ФУНКЦИЯ ЗА АВТОМАТИЧНО ОБНОВЯВАНЕ ---
+    let allConflictData = [];
+    let markersLayer = L.layerGroup().addTo(map);
 
-    // --- 5. ЗАРЕЖДАНЕ НА ДАННИ И ТЪРСАЧКА ---
-    let allConflictData = []; 
-
-    fetch('conflicts.json').then(res => res.json()).then(data => {
-        allConflictData = data;
-        let deaths = 0, countries = new Set();
-        
-        data.forEach(p => {
-            let marker = L.marker([p.lat, p.lon], { icon: getTacticalIcon(p.type) }).addTo(map);
-            
-            marker.on('click', () => {
-                map.setView([p.lat, p.lon], 6, { animate: true });
-                let deathsHTML = p.fatalities > 0 ? `<p style="color:#ff4d4d; font-size:18px;">💀 Жертви: ${p.fatalities}</p>` : "";
+    function loadMapData() {
+        fetch('conflicts.json?t=' + new Date().getTime())
+            .then(res => res.json())
+            .then(data => {
+                allConflictData = data;
+                markersLayer.clearLayers(); 
                 
-                let twitterHTML = "";
-                if (p.twitter_link) {
-                    twitterHTML = `<div style="margin-top: 15px; max-height: 400px; overflow-y: auto; border-radius: 8px;">
-                        <blockquote class="twitter-tweet" data-theme="dark"><a href="${p.twitter_link}"></a></blockquote>
-                    </div>`;
-                }
+                let deaths = 0, countries = new Set();
+                
+                data.forEach(p => {
+                    let marker = L.marker([p.lat, p.lon], { icon: getTacticalIcon(p.type) });
+                    marker.addTo(markersLayer);
+                    
+                    marker.on('click', () => {
+                        map.setView([p.lat, p.lon], 6, { animate: true });
+                        
+                        // ВРЪЩАМЕ ЛОГИКАТА ЗА ДЕТАЙЛИТЕ ТУК:
+                        let deathsHTML = p.fatalities > 0 ? `<p style="color:#ff4d4d; font-size:18px;">💀 Жертви: ${p.fatalities}</p>` : "";
+                        let twitterHTML = p.twitter_link ? `<div style="margin-top: 15px; max-height: 400px; overflow-y: auto; border-radius: 8px;"><blockquote class="twitter-tweet" data-theme="dark"><a href="${p.twitter_link}"></a></blockquote></div>` : "";
 
-                document.getElementById('news-content').innerHTML = `
-                    <div style="border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px;">
-                        <h2 style="color: #ff4d4d; margin: 0; font-weight: 300;">${p.country}</h2>
-                        <small style="color: #666; letter-spacing: 1px; text-transform: uppercase;">${p.date} | ${p.type}</small>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 4px; border-left: 3px solid #ff4d4d;">
-                        <p style="color: #ccc; line-height: 1.6; margin: 0;">${p.title}</p>
-                    </div>
-                    ${twitterHTML}
-                    <div style="margin-top: 25px;">
-                        ${deathsHTML}
-                        <a href="${p.link}" target="_blank" class="news-btn" style="display:block; text-align:center; text-decoration:none; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 12px;">ДЕТАЙЛИ</a>
-                    </div>`;
+                        document.getElementById('news-content').innerHTML = `
+                            <div style="border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px;">
+                                <h2 style="color: #ff4d4d; margin: 0; font-weight: 300;">${p.country}</h2>
+                                <small style="color: #666; letter-spacing: 1px; text-transform: uppercase;">${p.date} | ${p.type}</small>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 4px; border-left: 3px solid #ff4d4d;">
+                                <p style="color: #ccc; line-height: 1.6; margin: 0;">${p.title}</p>
+                            </div>
+                            ${twitterHTML}
+                            <div style="margin-top: 25px;">
+                                ${deathsHTML}
+                                <a href="${p.link}" target="_blank" class="news-btn" style="display:block; text-align:center; text-decoration:none; border: 1px solid #ff4d4d; color: #ff4d4d; padding: 12px;">ДЕТАЙЛИ</a>
+                            </div>`;
+                        if (window.twttr) { window.twttr.widgets.load(); }
+                    });
 
-                if (window.twttr) { window.twttr.widgets.load(); }
+                    deaths += (parseInt(p.fatalities) || 0);
+                    countries.add(p.country);
+                });
+
+                document.getElementById('active-events').innerText = "Active events: " + data.length;
+                document.getElementById('total-fatalities').innerText = "Total fatalities: " + deaths;
+                document.getElementById('countries-affected').innerText = "Countries affected: " + countries.size;
+                document.getElementById('news-ticker').innerText = data.map(p => `[${p.country.toUpperCase()}: ${p.title}]`).join(' +++ ');
+                document.getElementById('last-update').innerText = "Last update: " + new Date().toLocaleTimeString();
             });
+    }
 
-            deaths += (parseInt(p.fatalities) || 0);
-            countries.add(p.country);
-        });
-
-        // Обновяване на Dashboard
-        document.getElementById('active-events').innerText = "Active events: " + data.length;
-        document.getElementById('total-fatalities').innerText = "Total fatalities: " + deaths;
-        document.getElementById('countries-affected').innerText = "Countries affected: " + countries.size;
-        document.getElementById('news-ticker').innerText = data.map(p => `[${p.country.toUpperCase()}: ${p.title}]`).join(' +++ ');
-        document.getElementById('last-update').innerText = "Last update: " + new Date().toLocaleDateString();
-
-        // Фикс за черния екран
-        setTimeout(() => { 
-            if (typeof map !== 'undefined') { map.invalidateSize(); }
-        }, 800);
-    });
-
+    loadMapData();
+    setInterval(loadMapData, 60000);
+    
     // --- 6. ЛОГИКА НА ТЪРСАЧКАТА ---
     const searchInput = document.getElementById('map-search');
     const resultsDiv = document.getElementById('search-results');
