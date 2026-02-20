@@ -4,22 +4,22 @@
         "lat": 39.6823264,
         "lon": -76.602191,
         "date": "2026-02-20",
-        "type": "Breaking News",
-        "title": "Donald Trump to speak after major loss to US supreme court over sweeping global tariffs – live",
-        "description": "Latest report from international sources regarding USA.",
+        "type": "Naval",
+        "title": "US says 11 people killed in latest strikes on alleged drug boats",
+        "description": "pThree boats targeted in eastern Pacific and Caribbean as Trump continues pursuit of alleged ‘narco-terrorists’/ppUS military officials have said American forces launched assaults on three alleged drug-smuggling boats, killing 11 in one of the deadliest days of the a href=\"https://www.theguardian.com/us-news/trump-administration\"Trump administration’s/a months-long campaign against alleged traffickers./ppThe military action on Monday brought the number of fatalities caused by US strikes to 145 since September, when a href=\"https://www.theguardian.com/us-news/donaldtrump\"Donald Trump/a called on American armed forces to attack people deemed “narco-terrorists” on small vessels. There have been 42 known strikes in notorious drug-trafficking routes such as the Caribbean Sea and eastern Pacific Ocean, according to the Associated Press a href=\"https://www.military.com/daily-news/2026/02/17/strikes-3-more-alleged-drug-boats-kill-11-people-us-military-says.html\"reported/a./p a href=\"https://www.theguardian.com/us-news/2026/feb/17/us-military-boats-strikes\"Continue reading.../a",
         "fatalities": "0",
-        "link": "https://www.theguardian.com/us-news/live/2026/feb/20/us-iran-nuclear-deal-trump-agreement-strikes-latest-news-live-updates"
+        "link": "https://www.theguardian.com/us-news/2026/feb/17/us-military-boats-strikes"
     },
     {
-        "country": "Venezuela",
-        "lat": 8.0018709,
-        "lon": -66.1109318,
+        "country": "Middle East",
+        "lat": 30.8124247,
+        "lon": 34.8594762,
         "date": "2026-02-20",
-        "type": "Breaking News",
-        "title": "Venezuela signs amnesty law as families await prison releases",
-        "description": "Latest report from international sources regarding Venezuela.",
+        "type": "Naval",
+        "title": "Kenyan authorities used Israeli tech to crack activist’s phone, report claims",
+        "description": "pCitizen Lab report suggests Cellebrite software was used to break into Boniface Mwangi’s phone while he was under arrest/ppWhen Boniface Mwangi, the prominent Kenyan pro-democracy activist who plans to run a href=\"https://www.reuters.com/world/africa/kenyan-rights-activist-plans-run-president-2027-2025-08-27/\"for president in 2027/a, had his phones returned to him by Kenyan authorities after his a href=\"https://www.theguardian.com/world/2025/jul/20/arrested-kenyan-activist-boniface-mwangi-faces-terror-charges\"controversial arrest last July/a, he immediately noticed a problem: one of the phones was no longer password protected and could be opened without one./ppIt was Mwangi’s personal phone, which he used to communicate with friends and mentors, and contained photos of private family moments with his wife and children. Knowing that its contents could be in the hands of the Kenyan government made Mwangi – who has described harassment and a href=\"https://www.theguardian.com/world/2025/jun/29/activists-boniface-mwangi-agather-atuhaire-tanzania\"even torture/a – feel unsafe and “exposed”, he told the Guardian./p a href=\"https://www.theguardian.com/world/2026/feb/17/trim-slugs-to-kenya-authorities-israel-tech-crack-activists-phone-report\"Continue reading.../a",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/2/20/venezuela-signs-amnesty-law-as-families-await-prison-releases?traffic_source=rss"
+        "link": "https://www.theguardian.com/world/2026/feb/17/trim-slugs-to-kenya-authorities-israel-tech-crack-activists-phone-report"
     },
     {
         "country": "Middle East",
@@ -27,32 +27,21 @@
         "lon": 54.5643516,
         "date": "2026-02-20",
         "type": "Clashes",
-        "title": "Tracking the rapid US military build-up near Iran",
-        "description": "Latest report from international sources regarding Middle East.",
+        "title": "Iran says US military build-up ‘unnecessary and unhelpful’, deal achievable",
+        "description": "",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/news/2026/2/20/tracking-the-rapid-us-military-build-up-near-iran?traffic_source=rss"
+        "link": "https://www.aljazeera.com/news/2026/2/20/iran-says-us-military-build-up-unnecessary-and-unhelpful-deal-achievable?traffic_source=rss"
     },
     {
-        "country": "Middle East",
-        "lat": 10.77544,
-        "lon": 47.50766,
+        "country": "Venezuela",
+        "lat": 8.0018709,
+        "lon": -66.1109318,
         "date": "2026-02-20",
         "type": "Breaking News",
-        "title": "Hamas holds vote to choose new interim leader, source tells BBC",
-        "description": "Latest report from international sources regarding Middle East.",
+        "title": "A fragile freedom for Venezuela’s released political prisoners",
+        "description": "",
         "fatalities": "0",
-        "link": "https://www.bbc.com/news/articles/c23z0kdypm3o?at_medium=RSS&amp;at_campaign=rss"
-    },
-    {
-        "country": "Japan",
-        "lat": 36.6,
-        "lon": 138.65,
-        "date": "2026-02-20",
-        "type": "Breaking News",
-        "title": "Mystery donor gives Japanese city $3.6m in gold bars to fix water system",
-        "description": "Latest report from international sources regarding Japan.",
-        "fatalities": "0",
-        "link": "https://www.bbc.com/news/articles/c3ew5jlqz87o?at_medium=RSS&amp;at_campaign=rss"
+        "link": "https://www.aljazeera.com/news/longform/2026/2/20/a-fragile-freedom-for-venezuelas-released-political-prisoners?traffic_source=rss"
     },
     {
         "country": "Middle East",
@@ -61,7 +50,7 @@
         "date": "2026-02-20",
         "type": "Breaking News",
         "title": "Residents in northern Lebanon terrified their buildings will collapse",
-        "description": "Latest report from international sources regarding Middle East.",
+        "description": "",
         "fatalities": "0",
         "link": "https://www.aljazeera.com/video/newsfeed/2026/2/20/residents-in-northern-lebanon-terrified-their-buildings-will-collapse?traffic_source=rss"
     },
@@ -71,10 +60,10 @@
         "lon": 32.8066057,
         "date": "2026-02-20",
         "type": "Breaking News",
-        "title": "Trump’s Board of Peace faces its first test on Gaza",
-        "description": "Latest report from international sources regarding Middle East.",
+        "title": "FIFA and Peace Board pledge to help Gaza reconstruction through football",
+        "description": "",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/2/20/trumps-board-of-peace-faces-its-first-test-on-gaza?traffic_source=rss"
+        "link": "https://www.aljazeera.com/sports/2026/2/20/fifa-and-peace-board-pledge-to-help-gaza-reconstruction-through-football?traffic_source=rss"
     },
     {
         "country": "Africa",
@@ -83,77 +72,30 @@
         "date": "2026-02-20",
         "type": "Breaking News",
         "title": "UN emergency food aid in Somalia may halt by April amid severe hunger",
-        "description": "Latest report from international sources regarding Africa.",
+        "description": "",
         "fatalities": "0",
         "link": "https://www.aljazeera.com/news/2026/2/20/un-emergency-food-aid-in-somalia-may-halt-by-april-amid-severe-hunger?traffic_source=rss"
-    },
-    {
-        "country": "Middle East",
-        "lat": 30.8124247,
-        "lon": 34.8594762,
-        "date": "2026-02-20",
-        "type": "Naval",
-        "title": "Kenyan authorities used Israeli tech to crack activist’s phone, report claims",
-        "description": "Latest report from international sources regarding Middle East.",
-        "fatalities": "0",
-        "link": "https://www.theguardian.com/world/2026/feb/17/trim-slugs-to-kenya-authorities-israel-tech-crack-activists-phone-report"
     },
     {
         "country": "Africa",
         "lat": 14.5844444,
         "lon": 29.4917691,
         "date": "2026-02-20",
-        "type": "Clashes",
+        "type": "Naval",
         "title": "RSF siege of El Fasher in Sudan has ‘hallmarks of genocide’, UN mission finds",
-        "description": "Latest report from international sources regarding Africa.",
+        "description": "pReport details harrowing 18-month occupation of North Darfur capital, showing destruction aimed at ethnic communities/ppThe a href=\"https://www.theguardian.com/world/2025/oct/27/fears-civilians-sudan-paramilitary-rsf-capture-el-fasher\"siege and capture/a of the Sudanese city of El Fasher by the paramilitary Rapid Support Forces group last October bore “the hallmarks of genocide”, a UN-mandated fact-finding mission has said./ppIn a report detailing the harrowing 18-month occupation of the capital of North Darfur, investigators concluded that the RSF and allied militias deliberately inflicted conditions calculated to bring about the physical destruction of the Zaghawa and Fur ethnic communities./p a href=\"https://www.theguardian.com/world/2026/feb/19/rsf-siege-el-fasher-sudan-hallmarks-of-genocide-un-mission-north-darfur\"Continue reading.../a",
         "fatalities": "0",
         "link": "https://www.theguardian.com/world/2026/feb/19/rsf-siege-el-fasher-sudan-hallmarks-of-genocide-un-mission-north-darfur"
     },
     {
-        "country": "USA",
-        "lat": 38.8691306,
-        "lon": -77.054076,
+        "country": "Japan",
+        "lat": 36.6,
+        "lon": 138.65,
         "date": "2026-02-20",
-        "type": "Breaking News",
-        "title": "Trump responds to Obama’s viral interview, saying he will ask Pentagon to release files on UFOs and extraterrestrials – as it happ",
-        "description": "Latest report from international sources regarding USA.",
+        "type": "Naval",
+        "title": "Osaka stunned by anonymous gift of gold bars to fix ageing water pipes",
+        "description": "pMayor says Japanese city will respect donor’s specification that £2.7m gift must be used to repair dilapidated system/ppOsaka has received a hefty gift of gold bars worth 560m yen (£2.7m) from an anonymous donor and a request for its specific use: to fix the Japanese city’s dilapidated water pipes./ppThe gold bars, weighing a total of 21kg (46lb), were given to the Osaka City Waterworks Bureau in November by the donor who wants to help improve ageing water pipes, the mayor, Hideyuki Yokoyama, told reporters on Thursday./p a href=\"https://www.theguardian.com/world/2026/feb/20/osaka-stunned-by-anonymous-gift-of-36m-in-gold-to-fix-ageing-water-pipes\"Continue reading.../a",
         "fatalities": "0",
-        "link": "https://www.theguardian.com/us-news/live/2026/feb/19/donald-trump-first-board-of-peace-washington-us-politics-live"
-    },
-  {
-    "country": "Ukraine",
-    "title": "FRONTLINE UPDATE: INTENSE CLASHES IN EASTERN UKRAINE",
-    "description": "Kyiv reports heavy defensive battles as tactical maneuvers continue on both sides.",
-    "fatalities": 85,
-    "lat": 48.3794,
-    "lon": 38.0297,
-    "link": "https://liveuamap.com"
-  },
-  {
-    "country": "Poland",
-    "title": "NATO DEFENSE READINESS: TROOP MOVEMENTS NEAR BORDER",
-    "description": "Increased aerial activity and ground drills reported in eastern Poland as part of security reinforcement.",
-    "fatalities": 0,
-    "lat": 52.2370,
-    "lon": 23.0670,
-    "link": "https://www.nato.int"
-  },
-  {
-    "country": "Estonia",
-    "title": "CYBER ATTACK: GOVERNMENT INFRASTRUCTURE TARGETED",
-    "description": "Massive DDoS attack detected against Estonian state portals. IT units on high alert.",
-    "fatalities": 0,
-    "lat": 59.4370,
-    "lon": 24.7535,
-    "link": "https://www.bbc.com/news"
-  },
-  {
-    "country": "Germany",
-    "title": "SECURITY ALERT: MILITARY FACILITY SURVEILLANCE",
-    "description": "Unknown drones spotted over Ramstein Air Base. Security protocols engaged.",
-    "fatalities": 0,
-    "lat": 49.4447,
-    "lon": 7.5905,
-    "link": "https://www.dw.com"
-  }
+        "link": "https://www.theguardian.com/world/2026/feb/20/osaka-stunned-by-anonymous-gift-of-36m-in-gold-to-fix-ageing-water-pipes"
+    }
 ]
