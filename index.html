@@ -8,24 +8,26 @@
 </head>
 <body>
     <header>
-    <h1>🌐 Global Conflict Dashboard</h1>
-    <div id="dashboard">
-        <span id="active-events">Active events: 0</span>
-        <span id="total-fatalities">Total fatalities: 0</span>
-        <span id="countries-affected">Countries affected: 0</span>
-        <span id="last-update">Last update: N/A</span>
+        <h1>🌐 Global Conflict Dashboard</h1>
+        <div id="dashboard">
+            <span id="active-events">Active events: 0</span>
+            <span id="total-fatalities">Total fatalities: 0</span>
+            <span id="countries-affected">Countries affected: 0</span>
+            <span id="last-update">Last update: N/A</span>
 
-        <div class="header-ticker">
-            <div class="ticker-content" id="news-ticker">ЗАРЕЖДАНЕ НА ТАКТИЧЕСКИ ДАННИ...</div>
+            <div class="header-ticker">
+                <div class="ticker-content" id="news-ticker">ЗАРЕЖДАНЕ НА ТАКТИЧЕСКИ ДАННИ...</div>
+            </div>
+
+            <div class="live-clock" id="utc-clock">00:00:00 UTC</div>
         </div>
+    </header>
 
-        <div class="live-clock" id="utc-clock">00:00:00 UTC</div>
+    <div class="search-container">
+        <input type="text" id="map-search" placeholder="Търсене на държава или събитие...">
+        <div id="search-results" class="search-suggestions"></div>
     </div>
-</header>
-<div class="search-container">
-    <input type="text" id="map-search" placeholder="Търсене на държава или събитие...">
-    <div id="search-results" class="search-suggestions"></div>
-</div>
+
     <div class="main-container">
         <div id="map"></div>
         
@@ -36,27 +38,41 @@
             </div>
         </div>
     </div>
-<div class="map-legend">
-    <h4>ЛЕГЕНДА</h4>
-    <div class="legend-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ff4d4d" stroke-width="2">
-            <path d="M7 5l-2 2 5 5-5 5 2 2 5-5 5 5 2-2-5-5 5-5-2-2-5 5-5-5z"/>
-        </svg>
-        <span>Въоръжен сблъсък</span>
+
+    <div class="map-legend">
+        <h4>ЛЕГЕНДА</h4>
+        <div class="legend-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ff4d4d" stroke-width="2">
+                <path d="M7 5l-2 2 5 5-5 5 2 2 5-5 5 5 2-2-5-5 5-5-2-2-5 5-5-5z"/>
+            </svg>
+            <span>Въоръжен сблъсък</span>
+        </div>
+        <div class="legend-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e67e22" stroke-width="2">
+                <path d="M7 2l2 4 5-2-1 5 6 2-5 3 3 6-6-2-4 5V15l-5 2 3-5-4-4 5-1z"/>
+            </svg>
+            <span>Експлозия / Удар</span>
+        </div>
+        <div class="legend-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#5dade2" stroke-width="2">
+                <path d="M2 17l2-2h16l2 2H2zM5 15V8l5-3v10M11 15V3h2v12M14 15V7l5 8"/>
+            </svg>
+            <span>Военен кораб</span>
+        </div>
+        <div class="legend-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#39FF14" stroke-width="2">
+                <circle cx="12" cy="12" r="2"/><path d="M12 7V2m7.8 4.2l-3.5 3.5m4.7 6.3h-5m-3.5 6.5l-3.5-3.5M2 12h5m4.2-7.8l3.5 3.5"/>
+            </svg>
+            <span>Ядрена заплаха</span>
+        </div>
+        <div class="legend-item">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#00FFFF" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>Кибератака</span>
+        </div>
     </div>
-    <div class="legend-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#e67e22" stroke-width="2">
-            <path d="M7 2l2 4 5-2-1 5 6 2-5 3 3 6-6-2-4 5V15l-5 2 3-5-4-4 5-1z"/>
-        </svg>
-        <span>Експлозия / Удар</span>
-    </div>
-    <div class="legend-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#5dade2" stroke-width="2">
-            <path d="M2 17l2-2h16l2 2H2zM5 15V8l5-3v10M11 15V3h2v12M14 15V7l5 8"/>
-        </svg>
-        <span>Военен кораб</span>
-    </div>
-</div>
+
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
