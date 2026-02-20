@@ -23,6 +23,10 @@ FEEDS = [
     "https://news.un.org/feed/subscribe/en/news/all/rss.xml",
     "https://news.un.org/feed/subscribe/en/news/all/rss.xml",  
     "https://www.almasdarnews.com/article/category/syria/feed/",
+    "https://warnews247.gr/feed/", 
+    "https://www.zerohedge.com/feed", 
+    "https://halturnerradioshow.com/index.php/en/?format=feed&type=rss", 
+    "https://southfront.press/feed/", 
 ]
 
 geolocator = Nominatim(user_agent="conflict_map_final_v12")
@@ -138,4 +142,5 @@ def run_bot():
 
 if __name__ == "__main__":
     run_bot()
+
 
