@@ -1,6 +1,19 @@
 [
     {
         "country": "Ukraine",
+        "city": "Kyiv",
+        "lat": 50.4501,
+        "lon": 30.5234,
+        "date": "2026-02-21 15:27:19",
+        "type": "Breaking News",
+        "title": "Uncertainty in Europe After Trump’s Supreme Court Tariff Loss",
+        "description": "The decision could distract from other challenges facing the continent, like issues with China and the war in Ukraine.",
+        "fatalities": "0",
+        "link": "https://www.nytimes.com/2026/02/21/world/europe/political-uncertainty-trump-tariff-loss.html",
+        "critical": false
+    },
+    {
+        "country": "Ukraine",
         "city": "Kharkiv",
         "lat": 50.0017,
         "lon": 36.2304,
@@ -244,19 +257,6 @@
         "description": "The armed group is electing a new head after its top leaders were killed by Israel.",
         "fatalities": "0",
         "link": "https://www.bbc.com/news/articles/c23z0kdypm3o?at_medium=RSS&at_campaign=rss",
-        "critical": false
-    },
-    {
-        "country": "Ukraine",
-        "city": "Kyiv",
-        "lat": 50.4501,
-        "lon": 30.5234,
-        "date": "2026-02-21 12:32:26",
-        "type": "Breaking News",
-        "title": "Russia-Ukraine war: List of key events, day 1,458",
-        "description": "These are the key developments from day 1,458 of Russias war on Ukraine.",
-        "fatalities": "0",
-        "link": "https://www.aljazeera.com/news/2026/2/21/russia-ukraine-war-list-of-key-events-day-1458?traffic_source=rss",
         "critical": false
     }
 ]
