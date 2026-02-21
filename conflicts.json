@@ -1,5 +1,31 @@
 [
     {
+        "country": "Israel",
+        "city": "Gaza",
+        "lat": 31.5047,
+        "lon": 34.4648,
+        "date": "2026-02-21 12:38:35",
+        "type": "Breaking News",
+        "title": "Farmers in Gaza risk Israeli bullets to bring their fields back to life",
+        "description": "Gaza farmers face risks as Israeli buffer zones expand into their agricultural lands under heavy military control.",
+        "fatalities": "0",
+        "link": "https://www.aljazeera.com/features/2026/2/21/farmers-in-gaza-risk-israeli-bullets-to-bring-their-fields-back-to-life?traffic_source=rss",
+        "critical": false
+    },
+    {
+        "country": "Russia",
+        "city": "Moscow",
+        "lat": 55.7558,
+        "lon": 37.6173,
+        "date": "2026-02-21 12:38:34",
+        "type": "Breaking News",
+        "title": "Russia Takes the Gulag Out of the Gulag History Museum in Moscow",
+        "description": "The museum had preserved the history of brutality inflicted by the Soviet Union on its people. It will now focus on Nazi war crimes.",
+        "fatalities": "0",
+        "link": "https://www.nytimes.com/2026/02/20/world/europe/russia-gulag-history-museum-stalin.html",
+        "critical": false
+    },
+    {
         "country": "Ukraine",
         "city": "Kyiv",
         "lat": 50.4501,
@@ -231,32 +257,6 @@
         "description": "Hundreds of Ukrainian women and girls have reported sexual violence by Russian troops during the four-year war in Ukraine.",
         "fatalities": "0",
         "link": "https://www.nytimes.com/2026/02/20/world/europe/russian-soldiers-sexual-violence-ukraine.html",
-        "critical": false
-    },
-    {
-        "country": "Israel",
-        "city": "Tel Aviv",
-        "lat": 32.0853,
-        "lon": 34.7818,
-        "date": "2026-02-21 12:32:25",
-        "type": "Airstrike",
-        "title": "Palestinian-American Teenager Killed in West Bank Is Laid to Rest",
-        "description": "Nasrallah Abu Siyam, 19, was shot dead by an Israeli settler, according to a witness and Palestinian health officials, amid rising violent settler attacks in the Israeli-occupied territory.",
-        "fatalities": "0",
-        "link": "https://www.nytimes.com/2026/02/20/world/middleeast/palestinian-american-teenager-killed-west-bank.html",
-        "critical": false
-    },
-    {
-        "country": "Ukraine",
-        "city": "Kyiv",
-        "lat": 50.4501,
-        "lon": 30.5234,
-        "date": "2026-02-21 12:32:25",
-        "type": "Breaking News",
-        "title": "Hungary Poses Unexpected Hurdle to Europe’s 90-Billion Euro Loan to Ukraine",
-        "description": "While the delay may prove to be procedural, Hungary signaled that it could cause problems as the European Union works to send money to Ukraine.",
-        "fatalities": "0",
-        "link": "https://www.nytimes.com/2026/02/20/world/europe/euro-loan-ukraine-hungary-obstacle.html",
         "critical": false
     }
 ]
