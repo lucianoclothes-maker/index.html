@@ -32,7 +32,7 @@ window.onload = function() {
     // --- 2. ГЕОПОЛИТИЧЕСКИ ЗОНИ (War Zones, Tension) ---
     // Тези списъци определят оцветяването и статуса на държавите
     const warZones = ['Russia', 'Ukraine', 'Israel', 'Palestine', 'Sudan', 'Syria', 'Yemen'];
-    const highTension = ['Iran', 'North Korea', 'China', 'Taiwan', 'Venezuela', 'USA', 'Germany', 'Turkey', 'United States of America'];
+    const highTension = ['Iran', 'North Korea', 'China', 'Taiwan', 'Venezuela', 'USA', 'Germany', 'Turkey', 'UNITED STATES'];
 
     // Зареждане на границите на държавите
     fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
