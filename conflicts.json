@@ -5,10 +5,21 @@
         "lon": -76.602191,
         "date": "2026-02-21",
         "type": "Breaking News",
-        "title": "Trump: Supreme Court’s rejection of tariffs ‘deeply disappointing’",
+        "title": "UK ‘working with US’ to analyse impact of supreme court’s ruling against tariffs",
+        "description": "pGovernment ‘expects privileged trading position’ to go on as EU ‘seeks clarity’ over Trump administration’s next steps/ppBritain and the EU said they were assessing the implications of the a href=\"https://www.theguardian.com/us-news/2026/feb/20/trump-supreme-court-tariffs-ruling\"US supreme court ruling against Donald Trump’s global tariffs/a, while business groups reacted to the court’s announcement with caution./ppA spokesperson for Downing Street said: “The UK government is working with the US to understand how the overturning of Donald Trump’s tariffs by the supreme court will affect the UK but expects our privileged trading position with the US to continue.”/p a href=\"https://www.theguardian.com/politics/2026/feb/20/uk-eu-reaction-us-supreme-court-ruling-trump-tariffs\"Continue reading.../a",
+        "fatalities": "0",
+        "link": "https://www.theguardian.com/politics/2026/feb/20/uk-eu-reaction-us-supreme-court-ruling-trump-tariffs"
+    },
+    {
+        "country": "Middle East",
+        "lat": -23.328398,
+        "lon": 32.8066057,
+        "date": "2026-02-21",
+        "type": "Breaking News",
+        "title": "What’s next for Gaza after Trump’s Board of Peace meets in Washington?",
         "description": "",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/2/20/trump-supreme-courts-rejection-of-tariffs-deeply?traffic_source=rss"
+        "link": "https://www.aljazeera.com/video/inside-story/2026/2/20/whats-next-for-gaza-after-trumps-board-of-peace-meets-in-washington?traffic_source=rss"
     },
     {
         "country": "Middle East",
@@ -16,10 +27,10 @@
         "lon": 34.8594762,
         "date": "2026-02-21",
         "type": "Airstrike",
-        "title": "Israeli attacks kill at least 12 people, injure dozens across Lebanon",
-        "description": "",
+        "title": "Israeli settlers kill 19-year-old Palestinian American, officials and witnesses say",
+        "description": "pNasrallah Abu Siyam shot dead in occupied West Bank as UN human rights office accuses Israel of war crimes/ppIsraeli settlers in the occupied West Bank shot and killed a Palestinian American man during an attack on a village, the Palestinian health ministry and a witness have said./ppRaed Abu Ali, a resident of Mukhmas, said a group of settlers came to the village on Wednesday afternoon where they attacked a farmer, prompting clashes after residents intervened./p a href=\"https://www.theguardian.com/world/2026/feb/20/israeli-settlers-west-bank-kill-palestinian-american-man\"Continue reading.../a",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/news/2026/2/20/one-killed-in-israeli-strike-on-largest-palestinian-refugee-camp-in-lebanon?traffic_source=rss"
+        "link": "https://www.theguardian.com/world/2026/feb/20/israeli-settlers-west-bank-kill-palestinian-american-man"
     },
     {
         "country": "USA",
@@ -44,36 +55,47 @@
         "link": "https://www.aljazeera.com/news/2026/2/21/brazils-lula-says-maduro-should-face-trial-in-venezuela-not-us?traffic_source=rss"
     },
     {
-        "country": "Middle East",
-        "lat": -23.328398,
-        "lon": 32.8066057,
-        "date": "2026-02-21",
-        "type": "Breaking News",
-        "title": "What’s next for Gaza after Trump’s Board of Peace meets in Washington?",
-        "description": "",
-        "fatalities": "0",
-        "link": "https://www.aljazeera.com/video/inside-story/2026/2/20/whats-next-for-gaza-after-trumps-board-of-peace-meets-in-washington?traffic_source=rss"
-    },
-    {
         "country": "Africa",
         "lat": 14.5844444,
         "lon": 29.4917691,
         "date": "2026-02-21",
-        "type": "Drone",
-        "title": "How are killer drones reshaping the conflict in Sudan",
-        "description": "",
+        "type": "Naval",
+        "title": "RSF siege of El Fasher in Sudan has ‘hallmarks of genocide’, UN mission finds",
+        "description": "pReport details harrowing 18-month occupation of North Darfur capital, showing destruction aimed at ethnic communities/ppThe a href=\"https://www.theguardian.com/world/2025/oct/27/fears-civilians-sudan-paramilitary-rsf-capture-el-fasher\"siege and capture/a of the Sudanese city of El Fasher by the paramilitary Rapid Support Forces group last October bore “the hallmarks of genocide”, a UN-mandated fact-finding mission has said./ppIn a report detailing the harrowing 18-month occupation of the capital of North Darfur, investigators concluded that the RSF and allied militias deliberately inflicted conditions calculated to bring about the physical destruction of the Zaghawa and Fur ethnic communities./p a href=\"https://www.theguardian.com/world/2026/feb/19/rsf-siege-el-fasher-sudan-hallmarks-of-genocide-un-mission-north-darfur\"Continue reading.../a",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/video/the-take-2/2026/2/20/aje-onl-aj_tt_sdn_alfashir_av_v1-200226?traffic_source=rss"
+        "link": "https://www.theguardian.com/world/2026/feb/19/rsf-siege-el-fasher-sudan-hallmarks-of-genocide-un-mission-north-darfur"
     },
     {
         "country": "Middle East",
         "lat": 32.6475314,
         "lon": 54.5643516,
         "date": "2026-02-21",
-        "type": "Airstrike",
-        "title": "Trump ‘considering’ limited strikes on Iran",
-        "description": "",
+        "type": "Naval",
+        "title": "Trump announces new 10% global tariffs, lashes out at supreme court justices for ‘ridiculous’ ruling - as it happened",
+        "description": "pThis live blog is now closed./pullipa href=\"https://www.theguardian.com/us-news/2026/feb/20/trump-tariff-scotus-response\"Furious Trump signs global 10% duty after supreme court issues tariff blow/a/p/lilipa href=\"https://www.theguardian.com/us-news/2026/feb/20/trump-administration-news-updates-today\"Trump news at a glance: president lobs insults at US supreme court for striking down his global tariffs/a/p/lilipa href=\"https://www.theguardian.com/us-news/2026/feb/20/what-will-happen-to-trump-tariffs-after-supreme-court-verdict\"What will happen to Trump’s tariffs after supreme court verdict?/a/p/li/ulpAccording to reporters at the supreme court, one box of opinions has been brought out./ppTypically, this means we can expect two decisions from the court./p a href=\"https://www.theguardian.com/us-news/live/2026/feb/20/us-iran-nuclear-deal-trump-agreement-strikes-latest-news-live-updates\"Continue reading.../a",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/2/20/trump-considering-limited-strikes-on-iran?traffic_source=rss"
+        "link": "https://www.theguardian.com/us-news/live/2026/feb/20/us-iran-nuclear-deal-trump-agreement-strikes-latest-news-live-updates"
+    },
+    {
+        "country": "Japan",
+        "lat": 36.6,
+        "lon": 138.65,
+        "date": "2026-02-21",
+        "type": "Naval",
+        "title": "Osaka stunned by anonymous gift of gold bars to fix ageing water pipes",
+        "description": "pMayor says Japanese city will respect donor’s specification that £2.7m gift must be used to repair dilapidated system/ppOsaka has received a hefty gift of gold bars worth 560m yen (£2.7m) from an anonymous donor and a request for its specific use: to fix the Japanese city’s dilapidated water pipes./ppThe gold bars, weighing a total of 21kg (46lb), were given to the Osaka City Waterworks Bureau in November by the donor who wants to help improve ageing water pipes, the mayor, Hideyuki Yokoyama, told reporters on Thursday./p a href=\"https://www.theguardian.com/world/2026/feb/20/osaka-stunned-by-anonymous-gift-of-36m-in-gold-to-fix-ageing-water-pipes\"Continue reading.../a",
+        "fatalities": "0",
+        "link": "https://www.theguardian.com/world/2026/feb/20/osaka-stunned-by-anonymous-gift-of-36m-in-gold-to-fix-ageing-water-pipes"
+    },
+    {
+        "country": "USA",
+        "lat": 38.8950368,
+        "lon": -77.0365427,
+        "date": "2026-02-21",
+        "type": "Airstrike",
+        "title": "Bodyguards for Azerbaijani president, in town for Trump’s Board of Peace, attack protesters in DC",
+        "description": "pDemonstrators were outside hotel in Washington demanding the release of political prisoners in Azerbaijan/ppBodyguards traveling with the Azerbaijani president, who was visiting Washington for the inaugural meeting of a href=\"https://www.theguardian.com/us-news/donaldtrump\"Donald Trump/a’s Board of Peace, punched, kicked and chased protesters outside a Washington hotel on Thursday, a href=\"https://x.com/NoSezgin/status/2024560377921425507\"video footage shows/a./ppDemonstrators calling for the release of political prisoners were driven from the street near the motorcade of Ilham Aliyev, the Azerbaijani leader./p a href=\"https://www.theguardian.com/us-news/2026/feb/20/azerbaijan-trump-board-peace-protestors\"Continue reading.../a",
+        "fatalities": "0",
+        "link": "https://www.theguardian.com/us-news/2026/feb/20/azerbaijan-trump-board-peace-protestors"
     }
 ]
