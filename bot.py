@@ -173,14 +173,17 @@ def run_bot():
     existing_events = load_existing_events()
     new_found_events = []
     
-    # ГЕОГРАФСКА БАЗА ДАННИ
+   # ГЕОГРАФСКА БАЗА ДАННИ (ЗАМЕНИ СТАРИЯ БЛОК С ТОЗИ)
     locations_db = {
         "Iran": ["Tehran", "Isfahan", "Bushehr", "Tabriz", "Mashhad", "Shiraz"],
-        "Ukraine": ["Kyiv", "Kharkiv", "Odesa", "Lviv", "Donetsk", "Zaporizhzhia"],
-        "Russia": ["Moscow", "Sevastopol", "Belgorod", "Engels", "Kursk"],
+        "Ukraine": ["Kyiv", "Kharkiv", "Odesa", "Lviv", "Donetsk", "Zaporizhzhia", "Pokrovsk", "Vovchansk"],
+        "Russia": ["Moscow", "Sevastopol", "Belgorod", "Engels", "Kursk", "Rostov"],
         "Israel": ["Tel Aviv", "Jerusalem", "Haifa", "Gaza", "Ashdod"],
         "Syria": ["Damascus", "Aleppo", "Latakia"],
-        "Lebanon": ["Beirut", "Tyre", "Sidon"]
+        "Lebanon": ["Beirut", "Tyre", "Sidon"],
+        "USA": ["Washington", "New York", "Pentagon", "Norfolk", "San Diego"],
+        "China": ["Beijing", "Shanghai", "Taiwan Strait", "South China Sea", "Hainan"],
+        "Europe": ["Brussels", "Warsaw", "Rzeszow", "Bucharest", "Berlin", "Paris", "London", "Poland", "Romania", "Bulgaria"]
     }
 
     print(f"📡 --- STARTING GLOBAL INTELLIGENCE SCAN ---")
@@ -246,6 +249,7 @@ if __name__ == "__main__":
     run_bot()
     print(f"⏱️ Cycle Finished in {round(time.time() - start_time, 2)}s.")
     # Край на скрипта. Всички 250 реда са генерирани.
+
 
 
 
