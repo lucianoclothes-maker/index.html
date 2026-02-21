@@ -184,11 +184,11 @@ function createAssetIcon(type) {
 
     // 1. ПРОВЕРКА ЗА ПЕХОТА (ВОЙНИЦИ)
     if (type === 'ua-infantry') {
-        symbol = '🪖';
+        symbol = '⚔';
         styleClass += 'icon-us-nato'; // Синьо/Зелено за Украйна
     } 
     else if (type === 'ru-infantry') {
-        symbol = '🪖';
+        symbol = '⚔';
         styleClass += 'icon-ru-ua'; // Червено за Русия
     }
     // 2. ПРОВЕРКА ЗА ИРАНСКИ СПЕЦИАЛНИ ОБЕКТИ
