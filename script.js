@@ -147,6 +147,9 @@ fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/mast
         { name: "RU Assault Units (Bakhmut Sector)", type: "ru-infantry", lat: 48.59, lon: 38.00 },
         { name: "RU 58th Army (Robotyne Front)", type: "ru-infantry", lat: 47.44, lon: 35.83 },
         { name: "Donetsk Grouping", type: "ru-infantry", lat: 47.99, lon: 37.67 },
+        { name: "Tower 22 (US Logistics Hub)", type: "us-air", lat: 33.31, lon: 38.70 },
+        { name: "USS Carney (Destroyer - Red Sea)", type: "us-naval", lat: 15.50, lon: 41.20 },
+        { name: "Nevatim Airbase (Israel F-35)", type: "us-air", lat: 31.20, lon: 35.01 },
     ];
 
     // --- СЕКЦИЯ 4: РАЗШИРЕН CSS СТИЛ (UI ОПТИМИЗАЦИЯ) ---
