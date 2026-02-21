@@ -5,21 +5,21 @@
         "lon": -76.602191,
         "date": "2026-02-21",
         "type": "Breaking News",
-        "title": "Can Trump still impose tariffs after the Supreme Court ruling?",
+        "title": "Trump: Supreme Court’s rejection of tariffs ‘deeply disappointing’",
         "description": "",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/economy/2026/2/20/can-trump-still-impose-tariffs-after-the-supreme-court-ruling?traffic_source=rss"
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/2/20/trump-supreme-courts-rejection-of-tariffs-deeply?traffic_source=rss"
     },
     {
         "country": "Middle East",
         "lat": 30.8124247,
         "lon": 34.8594762,
         "date": "2026-02-21",
-        "type": "Breaking News",
-        "title": "US envoy suggests it would be ‘fine’ if Israel expands across Middle East",
+        "type": "Airstrike",
+        "title": "Israeli attacks kill at least 12 people, injure dozens across Lebanon",
         "description": "",
         "fatalities": "0",
-        "link": "https://www.aljazeera.com/news/2026/2/20/us-envoy-suggests-it-would-be-fine-if-israel-expands-across-middle-east?traffic_source=rss"
+        "link": "https://www.aljazeera.com/news/2026/2/20/one-killed-in-israeli-strike-on-largest-palestinian-refugee-camp-in-lebanon?traffic_source=rss"
     },
     {
         "country": "USA",
@@ -42,5 +42,38 @@
         "description": "",
         "fatalities": "0",
         "link": "https://www.aljazeera.com/news/2026/2/21/brazils-lula-says-maduro-should-face-trial-in-venezuela-not-us?traffic_source=rss"
+    },
+    {
+        "country": "Middle East",
+        "lat": -23.328398,
+        "lon": 32.8066057,
+        "date": "2026-02-21",
+        "type": "Breaking News",
+        "title": "What’s next for Gaza after Trump’s Board of Peace meets in Washington?",
+        "description": "",
+        "fatalities": "0",
+        "link": "https://www.aljazeera.com/video/inside-story/2026/2/20/whats-next-for-gaza-after-trumps-board-of-peace-meets-in-washington?traffic_source=rss"
+    },
+    {
+        "country": "Africa",
+        "lat": 14.5844444,
+        "lon": 29.4917691,
+        "date": "2026-02-21",
+        "type": "Drone",
+        "title": "How are killer drones reshaping the conflict in Sudan",
+        "description": "",
+        "fatalities": "0",
+        "link": "https://www.aljazeera.com/video/the-take-2/2026/2/20/aje-onl-aj_tt_sdn_alfashir_av_v1-200226?traffic_source=rss"
+    },
+    {
+        "country": "Middle East",
+        "lat": 32.6475314,
+        "lon": 54.5643516,
+        "date": "2026-02-21",
+        "type": "Airstrike",
+        "title": "Trump ‘considering’ limited strikes on Iran",
+        "description": "",
+        "fatalities": "0",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/2/20/trump-considering-limited-strikes-on-iran?traffic_source=rss"
     }
 ]
