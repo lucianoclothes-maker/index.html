@@ -31,7 +31,7 @@ window.onload = function() {
     // Нова Синя Зона за Европа
     const blueZone = [
         'France', 'Germany', 'United Kingdom', 'Italy', 'Poland', 
-        'Spain', 'Bulgaria', 'Serbia', 'Romania', 'Greece', 'Norway'
+        'Spain', 'Bulgaria', 'Romania', 'Greece', 'Norway'
     ];
 
     const highTension = [
