@@ -119,6 +119,10 @@ fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/mast
         { name: "Kashan Drone Center", type: "ir-pvo", lat: 33.89, lon: 51.57 },
         { name: "Haji Abad Missile Complex", type: "ir-pvo", lat: 28.04, lon: 55.91 },
         { name: "IRIS Shahid Bagheri (Drone Carrier)", type: "ir-naval", lat: 27.00, lon: 56.10 },
+        { name: "Natanz Enrichment Complex", type: "ir-pvo", lat: 33.72, lon: 51.72 },
+        { name: "Fordow Underground Facility", type: "ir-pvo", lat: 34.88, lon: 50.99 },
+        { name: "Arak Heavy Water Plant", type: "ir-pvo", lat: 34.37, lon: 49.24 },
+        { name: "Bushehr Nuclear Plant", type: "ir-pvo", lat: 28.82, lon: 50.88 },
     ];
 
     // --- СЕКЦИЯ 4: РАЗШИРЕН CSS СТИЛ (UI ОПТИМИЗАЦИЯ) ---
