@@ -283,13 +283,14 @@ function createAssetIcon(type) {
                 globalLastEventTitle = data[0].title;
             }
 
-            // Обработка на всяка новина
+   // Обработка на всяка новина
             data.forEach(item => {
                 const icon = (item.critical || item.type === "Evacuation") ? '🚨' : '⚠️';
                 const marker = L.marker([item.lat, item.lon], { 
                     icon: L.divIcon({ html: `<div class="alert-pulse" style="font-size:38px;">${icon}</div>`, iconSize:[45,45] }) 
                 }).addTo(markersLayer);
 
+                // Фикс: Директно подаване на текущия обект (item) към функцията
                 marker.on('click', () => showIntelDetails(item));
 
                 if (sidebar) {
@@ -300,6 +301,7 @@ function createAssetIcon(type) {
                     sidebar.appendChild(entry);
                 }
             });
+        // Тук се затваря fetch/data блока
         });
     }
 
