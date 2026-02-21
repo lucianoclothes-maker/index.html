@@ -38,6 +38,8 @@ FEEDS = [
     "https://www.naval-technology.com/feed/",
     "https://theaviationist.com/feed/",
     "https://www.defense.gov/DesktopModules/ArticleCS/RSS.ashx?max=10"
+    "https://www.aljazeera.com/xml/rss/all.xml",
+    "https://p.dw.com/p/24CH"
 ]
 
 # КЕШ ЗА ЛОКАЦИИ: Подсигурява стабилността на картата
@@ -74,6 +76,16 @@ LOCATION_CACHE = {
     "san diego": [32.7157, -117.1611],
     "poland": [52.0000, 19.0000],
     "romania": [46.0000, 25.0000]
+    "khartoum": [15.5007, 32.5599],
+    "mogadishu": [2.0469, 45.3182],
+    "niamey": [13.5116, 2.1254],
+    "bamako": [12.6392, -8.0029],
+    "ouagadougou": [12.3714, -1.5197],
+    "sudan": [12.8628, 30.2176],
+    "somalia": [5.1521, 46.1996],
+    "libya": [26.3351, 17.2283],
+    "tripoli": [32.8872, 13.1913],
+    "djibouti": [11.5721, 43.1456]
 }
 
 def clean_html(raw_html):
@@ -198,6 +210,8 @@ def run_bot():
         "Europe": ["Brussels", "Warsaw", "Rzeszow", "Bucharest", "Berlin", "Paris", "London", "Poland", "Romania", "Finland", "Sweden" "Bulgaria"],
         "Middle East": ["Beirut", "Tyre", "Sidon", "Damascus", "Aleppo", "Latakia", "Red Sea", "Yemen", "Sanaa"],
         "Asia": ["Tokyo", "Seoul", "Pyongyang", "Manila", "South China Sea"]
+        "Africa": ["Khartoum", "Mogadishu", "Niamey", "Bamako", "Ouagadougou", "Sudan", "Somalia", "Mali", "Niger", "Burkina Faso", "Libya", "Tripoli"],
+        "Red Sea Region": ["Bab el-Mandeb", "Djibouti", "Eritrea"]
     }
 
     print(f"📡 --- STARTING GLOBAL INTELLIGENCE SCAN ---")
@@ -263,6 +277,7 @@ if __name__ == "__main__":
     run_bot()
     print(f"⏱️ Cycle Finished in {round(time.time() - start_time, 2)}s.")
     # Край на скрипта. Всички 250 реда са генерирани.
+
 
 
 
