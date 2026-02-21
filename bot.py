@@ -76,20 +76,36 @@ def extract_info(text, locations_map):
     """
     t = text.lower()
     
-    # Речник на тактическите събития (ПЪЛЕН ОБЕМ)
-    event_map = {
+   event_map = {
         "Evacuation": [
-            "evacuate", "leave now", "citizens must leave", "evacuation" "Iran", "USA", 
-            "emergency departure", "leave immediately", "urges citizens", 
-            "travel warning", "diplomatic exit", "security alert" "Europe",
-            "warns citizens", "orders citizens", "advice to leave", "flee"
+            "evacuate", "leave now", "citizens must leave", "evacuation", "emergency departure", 
+            "leave immediately", "urges citizens", "travel warning", "diplomatic exit", 
+            "security alert", "warns citizens", "orders citizens", "advice to leave", "flee"
         ],
-        "Naval": ["ship", "vessel", "navy", "maritime", "carrier", "destroyer", "frigate", "naval base"],
-        "Airstrike": ["airstrike", "missile", "rocket", "bombing", "strikes", "attack", "ballistic"],
-        "Explosion": ["explosion", "blast", "shelling", "artillery", "detonation", "shook", "smoke"],
-        "Drone": ["drone", "uav", "shahed", "fpv", "kamikaze", "unmanned aerial"],
-        "Clashes": ["clashes", "fighting", "battle", "siege", "frontline", "tank", "combat", "soldiers"],
-        "Nuclear": ["nuclear", "atomic", "radiation", "npp", "icbm", "uranium", "reactor", "plutonium"]
+        "Naval": [
+            "ship", "vessel", "navy", "maritime", "carrier", "destroyer", "frigate", "naval base", 
+            "black sea", "baltic", "mediterranean", "red sea", "houthi"
+        ],
+        "Airstrike": [
+            "airstrike", "missile", "rocket", "bombing", "strikes", "attack", "ballistic", 
+            "kinzhal", "iskander", "kalibr", "kh-101", "storm shadow", "himars", "patriot"
+        ],
+        "Explosion": [
+            "explosion", "blast", "shelling", "artillery", "detonation", "shook", "smoke", 
+            "grad", "mlrs", "howitzer", "mortar", "vovchansk", "pokrovsk"
+        ],
+        "Drone": [
+            "drone", "uav", "shahed", "fpv", "kamikaze", "unmanned aerial", "reconnaissance", 
+            "electronic warfare", "jamming"
+        ],
+        "Clashes": [
+            "clashes", "fighting", "battle", "siege", "frontline", "tank", "combat", "soldiers", 
+            "infantry", "offensive", "counter-offensive", "war", "invasion", "occupied"
+        ],
+        "Nuclear": [
+            "nuclear", "atomic", "radiation", "npp", "icbm", "uranium", "reactor", "plutonium", 
+            "zaporizhzhia npp", "iaea", "fallout"
+        ]
     }
 
     found_city, found_region = None, "World"
@@ -224,5 +240,6 @@ if __name__ == "__main__":
     run_bot()
     print(f"⏱️ Cycle Finished in {round(time.time() - start_time, 2)}s.")
     # Край на скрипта. Всички 250 реда са генерирани.
+
 
 
