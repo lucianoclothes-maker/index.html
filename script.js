@@ -41,7 +41,7 @@ window.onload = function() {
 
 // --- СЕКЦИЯ 2: ГЕОПОЛИТИЧЕСКИ ДАННИ И ГРАНИЦИ ---
 const warZones = ['Russia', 'Ukraine', 'Syria', 'Sudan'];
-const blueZone = ['France', 'Germany', 'United Kingdom', 'Italy', 'Poland', 'Bulgaria', 'Romania', 'Greece', 'Norway', 'Jordan', 'Lebanon', 'Turkey', 'Saudi Arabia', 'Lithuania', 'Belarus'];
+const blueZone = ['France', 'Germany', 'United Kingdom', 'Italy', 'Poland', 'Bulgaria', 'Romania', 'Greece', 'Norway', 'Jordan', 'Lebanon', 'Turkey', 'Saudi Arabia', 'Lithuania', 'Belarus', 'Finland', 'Sweden'];
 const tensionZones = ['Iran', 'North Korea', 'China', 'Taiwan', 'Venezuela', 'USA', 'United States', 'Iraq', 'Yemen', 'Israel', 'Latvia', 'Estonia'];
 
 fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
@@ -150,6 +150,13 @@ fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/mast
         { name: "Tower 22 (US Logistics Hub)", type: "us-air", lat: 33.31, lon: 38.70 },
         { name: "USS Carney (Destroyer - Red Sea)", type: "us-naval", lat: 15.50, lon: 41.20 },
         { name: "Nevatim Airbase (Israel F-35)", type: "us-air", lat: 31.20, lon: 35.01 },
+        { name: "Machulishchy Air Base (RU-BY)", type: "ru-air", lat: 53.7741, lon: 27.5776 },
+        { name: "Baranovichi Air Base (RU-BY)", type: "ru-air", lat: 53.1167, lon: 26.0494 },
+        { name: "Luninets Air Base", type: "ru-air", lat: 52.2748, lon: 26.7863 },
+        { name: "Lida Air Base", type: "ru-air", lat: 53.8824, lon: 25.3023 },
+        { name: "Zyabrovka Missile Site", type: "ru-missile", lat: 52.3082, lon: 31.1627 },
+        { name: "Brest Training Ground", type: "ru-infantry", lat: 52.0977, lon: 23.6877 },
+        { name: "Gomel Logistics Hub", type: "ru-infantry", lat: 52.4345, lon: 30.9754 }
     ];
 // --- СЕКЦИЯ: ВРЕДНИ ЗОНИ (ОБХВАТ НА УДАР) ---
 strategicAssets.forEach(asset => {
