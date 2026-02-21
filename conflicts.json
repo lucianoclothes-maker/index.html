@@ -1,5 +1,18 @@
 [
     {
+        "country": "Russia",
+        "city": "Moscow",
+        "lat": 55.7558,
+        "lon": 37.6173,
+        "date": "2026-02-21 14:46:29",
+        "type": "Breaking News",
+        "title": "Trump Official Backs Russia’s Return to Global Sports",
+        "description": "Paolo Zampolli, a special envoy for President Trump, endorsed Russia’s participation at next month’s Paralympics, a move greeted with dismay in European capitals.",
+        "fatalities": "0",
+        "link": "https://www.nytimes.com/2026/02/21/world/europe/trump-administration-russia-global-sports-return.html",
+        "critical": false
+    },
+    {
         "country": "Ukraine",
         "city": "Kyiv",
         "lat": 50.4501,
@@ -244,19 +257,6 @@
         "description": "The decision could distract from other challenges facing the continent, like issues with China and the war in Ukraine.",
         "fatalities": "0",
         "link": "https://www.nytimes.com/2026/02/21/world/europe/political-uncertainty-trump-tariff-loss.html",
-        "critical": false
-    },
-    {
-        "country": "Iran",
-        "city": "Tehran",
-        "lat": 35.6892,
-        "lon": 51.389,
-        "date": "2026-02-21 12:32:25",
-        "type": "Airstrike",
-        "title": "Why Attacking Iran Could Be Riskier Than Capturing Maduro",
-        "description": "Iran’s extensive military abilities and network of regional proxies could draw the United States into a prolonged conflict.",
-        "fatalities": "0",
-        "link": "https://www.nytimes.com/2026/02/21/world/middleeast/iran-military-operation-venezuela.html",
         "critical": false
     }
 ]
