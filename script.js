@@ -110,6 +110,7 @@ fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/mast
         { name: "Aviano Air Base (Italy)", type: "us-air", lat: 46.03, lon: 12.59 },
         { name: "Diego Garcia Base", type: "us-naval", lat: -7.31, lon: 72.41 },
         { name: "Kaliningrad HQ", type: "ru-hq", lat: 54.71, lon: 20.45 }
+        { name: "Muwaffaq Salti Air Base (Jordan)", type: "us-air", lat: 31.83, lon: 36.78 },
     ];
 
     // --- СЕКЦИЯ 4: РАЗШИРЕН CSS СТИЛ (UI ОПТИМИЗАЦИЯ) ---
