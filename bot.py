@@ -81,7 +81,7 @@ def extract_info(text, locations_map):
         "Evacuation": [
             "evacuate", "leave now", "citizens must leave", "evacuation" "Iran", "USA", 
             "emergency departure", "leave immediately", "urges citizens", 
-            "travel warning", "diplomatic exit", "security alert",
+            "travel warning", "diplomatic exit", "security alert" "Europe",
             "warns citizens", "orders citizens", "advice to leave", "flee"
         ],
         "Naval": ["ship", "vessel", "navy", "maritime", "carrier", "destroyer", "frigate", "naval base"],
@@ -224,4 +224,5 @@ if __name__ == "__main__":
     run_bot()
     print(f"⏱️ Cycle Finished in {round(time.time() - start_time, 2)}s.")
     # Край на скрипта. Всички 250 реда са генерирани.
+
 
