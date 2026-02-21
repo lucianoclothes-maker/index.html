@@ -1,5 +1,18 @@
 [
     {
+        "country": "Russia",
+        "city": "Moscow",
+        "lat": 55.7558,
+        "lon": 37.6173,
+        "date": "2026-02-21 12:27:19",
+        "type": "Breaking News",
+        "title": "Russia Takes the Gulag Out of the Gulag History Museum in Moscow",
+        "description": "The museum had preserved the history of brutality inflicted by the Soviet Union on its people. It will now focus on Nazi war crimes.",
+        "fatalities": "0",
+        "link": "https://www.nytimes.com/2026/02/20/world/europe/russia-gulag-history-museum-stalin.html",
+        "critical": false
+    },
+    {
         "country": "Israel",
         "city": "Gaza",
         "lat": 32.0467401,
