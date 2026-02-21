@@ -36,7 +36,7 @@ window.onload = function() {
 
     const highTension = [
         'Iran', 'North Korea', 'China', 'Taiwan', 'Venezuela', 
-        'United States', 'United States of America', 'USA', 'Turkey' 'Yemen'
+        'United States', 'United States of America', 'USA', 'Turkey', 'Yemen'
     ];
 
     fetch('https://raw.githubusercontent.com/datasets/geo-boundaries-world-110m/master/countries.geojson')
